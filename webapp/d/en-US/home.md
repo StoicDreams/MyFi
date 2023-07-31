@@ -8,7 +8,7 @@ Through MyFi, Stoic Dreams provides a range of content delivery and API services
 We will be launching new features and services soon, including Feedback management, Authentication, Account services, and more.
 ```
 
-## Current Servcies
+## Current Services
 
 ```quote "warning"
 Coming Soon!
