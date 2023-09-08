@@ -1339,6 +1339,12 @@ main.page.transition.in img {
     display: block;
 }
 
+.d-grid {
+    display: grid;
+    gap: var(--padding);
+    grid-template-columns: repeat(auto-fit, minmax(1em, 400px))
+}
+
 .d-flex {
     display: flex;
     gap: var(--padding);
@@ -1461,6 +1467,10 @@ main>*>.d-flex>*[width] {
 
 .max-content {
     width: max-content;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .justify-left {
