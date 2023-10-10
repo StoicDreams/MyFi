@@ -15,6 +15,8 @@ How you can correct any inaccuracies in the information.
 
 ````
 
+!<MyFiStorageConcent>
+
 ## Information Collection, Use, and Sharing
 
 ```section
