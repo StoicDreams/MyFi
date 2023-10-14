@@ -1,11 +1,11 @@
-# MyFi - Content Delivery and Api Services for Stoic Dreams websites
+# MyFi - SAAS Content Delivery and Api Services
 
 ```section
-Through MyFi, Stoic Dreams provides a range of content delivery and API services to support Stoic Dreams' websites and products. MyFi allows Stoic Dreams engineers to promptly and effectively produce and release new API features and services.
+MyFi is a provider of various SAAS solutions for software developers, brought to you by [Stoic Dreams](https://www.stoicdreams.com).
 ```
 
 ```section
-We will be launching new features and services soon, including Feedback management, Authentication, Account services, and more.
+We will be launching new features and services soon, including Feedback management, User Account services, and more.
 ```
 
 ## Current Services
