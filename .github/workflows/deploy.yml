@@ -8,7 +8,7 @@ on:
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
   CARGO_TERM_COLOR: always
-  ACCOUNT_NAME: myficdn
+  ACCOUNT_NAME: stoicdreamscdn
   PROFILE_NAME: myficdnprofile
 
 jobs:

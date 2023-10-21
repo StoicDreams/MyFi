@@ -1,6 +1,6 @@
 [package]
 name = "webapp"
-version = "0.6.62" #syncwebui
+version = "0.6.65" #syncwebui
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -11,6 +11,7 @@ webui = { git = "https://github.com/StoicDreams/RustWebUI", branch = "main", fea
     "stoic",
 ] }
 yew = "0.20"
+serde = { version = "1.0", features = ["derive"] }
 
 [profile.dev]
 opt-level = "s"

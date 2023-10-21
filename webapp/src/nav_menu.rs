@@ -24,10 +24,29 @@ pub(crate) fn get_nav_routing() -> Vec<NavRoute> {
             page_about,
         ),
         NavGroupInfo::link(
+            "Stoic Dreams Admin",
+            "fa-duotone fa-jedi",
+            roles::SITE_ADMIN,
+            vec![NavLinkInfo::link(
+                "Stock Images",
+                "/stock_images",
+                "fa-duotone fa-images",
+                roles::SITE_ADMIN,
+                page_stock_images,
+            )],
+        ),
+        NavGroupInfo::link(
             "Coming Soon",
             "fa-duotone fa-person-chalkboard",
             roles::PUBLIC,
             vec![
+                NavLinkInfo::link(
+                    "Account Services",
+                    "/about/account_services",
+                    "fa-duotone fa-users-viewfinder",
+                    roles::PUBLIC,
+                    page_account_services,
+                ),
                 NavLinkInfo::link(
                     "Feedback Services",
                     "/about/feedback_services",
@@ -36,11 +55,11 @@ pub(crate) fn get_nav_routing() -> Vec<NavRoute> {
                     page_feedback_services,
                 ),
                 NavLinkInfo::link(
-                    "Account Services",
-                    "/about/account_services",
-                    "fa-duotone fa-users-viewfinder",
+                    "Subscriptions",
+                    "/about/subscriptions",
+                    "fa-duotone fa-conveyor-belt-boxes",
                     roles::PUBLIC,
-                    page_account_services,
+                    page_subscriptions,
                 ),
             ],
         ),

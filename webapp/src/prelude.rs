@@ -4,3 +4,5 @@ pub use crate::pages::*;
 pub use components::*;
 
 pub use webui::prelude::*;
+
+pub(crate) use serde::{Deserialize, Serialize};
