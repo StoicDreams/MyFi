@@ -10,6 +10,7 @@ env:
   CARGO_TERM_COLOR: always
   ACCOUNT_NAME: stoicdreamscdn
   PROFILE_NAME: myficdnprofile
+  PROFILE_ACCOUNT_NAME: myficdn
 
 jobs:
   build-and-deploy:
@@ -62,7 +63,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          az cdn endpoint purge -g ${{ secrets.AZURE_RESOURCE_GROUP }} -n ${{ env.ACCOUNT_NAME }} --profile-name ${{ env.PROFILE_NAME }} --content-paths '/*'
+          az cdn endpoint purge -g ${{ secrets.AZURE_RESOURCE_GROUP }} -n ${{ env.PROFILE_ACCOUNT_NAME }} --profile-name ${{ env.PROFILE_NAME }} --content-paths '/*'
     - name: logout
       run: |
         az logout
