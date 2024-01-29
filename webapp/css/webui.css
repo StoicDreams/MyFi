@@ -141,7 +141,7 @@ main>.paper {
     display: flex;
     flex-direction: column;
     margin: 0;
-    padding: var(--padding);
+    padding: 0;
     padding-bottom: calc(var(--padding) + var(--footer-height));
     height: 100%;
     max-height: 100%;
@@ -221,7 +221,17 @@ p {
     margin: 0;
 }
 
-p:not(:first-child) {
+img,
+svg {
+    vertical-align: middle;
+}
+
+img:not(:only-child) {
+    height: 1em;
+}
+
+.paper>p:not(:first-child),
+.paper>div:not(:first-child) {
     margin-top: calc(1.5 * var(--padding));
 }
 
@@ -253,6 +263,11 @@ svg {
     overflow: visible;
 }
 
+hr {
+    width: 100%;
+    margin: calc(3*var(--padding)) 0;
+}
+
 pre,
 .auto_message_box {
     position: relative;
@@ -276,6 +291,11 @@ pre[languagetag]:before {
     z-index: 0;
     opacity: 0.7;
     box-sizing: border-box;
+}
+
+main>.paper>pre {
+    margin-left: var(--padding);
+    margin-right: var(--padding);
 }
 
 code {
@@ -305,6 +325,7 @@ table {
     border-collapse: collapse;
 }
 
+table>tr:first-child>td,
 table th {
     background-color: var(--color-primary);
     color: var(--color-primary-offset);
@@ -486,9 +507,25 @@ ol {
     padding-inline-start: calc(4 * var(--padding));
 }
 
+li {
+    position: relative;
+    line-height: 1.5em;
+    align-items: center;
+}
+
+li>svg:first-child,
+li>img:first-child,
+li>i:first-child {
+    float: left;
+    margin-right: calc(2*var(--padding));
+    height: 1.4em;
+}
+
 /* Layout Styles */
 #app>header {
     padding: var(--padding);
+    position: relative;
+    z-index: 100;
 }
 
 #app>footer {
@@ -542,13 +579,13 @@ main.page.hidden+#loading {
 }
 
 main.page.transition.out {
-    transform: scale(0.3) translateY(-10%);
+    transform: rotateY(90deg);
     opacity: 0;
 }
 
 main.page.transition.in {
-    transform: scale(1.03) translateY(1%);
-    opacity: 1;
+    transform: rotateY(90deg);
+    opacity: 0.6;
 }
 
 /* Component Classes */
@@ -751,6 +788,10 @@ aside.app-drawer.left {
 
 .app-drawer.left.open>.drawer-placement>.drawer-content {
     left: 100%;
+}
+
+.drawer-content img {
+    max-width: 100%;
 }
 
 .paper {
@@ -2711,6 +2752,150 @@ body.w-4k .hide-at-4k {
     color: var(--color-shade-offset);
     margin-top: calc(2 * var(--padding));
     box-shadow: inset var(--elevation-7);
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-inline-start {
+    float: inline-start;
+}
+
+.float-inline-end {
+    float: inline-end;
+}
+
+.clear {
+    clear: both;
+}
+
+.clear::before,
+.clear::after {
+    content: " ";
+    display: block;
+    height: 0px;
+    clear: both;
+}
+
+.titlebar-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.titlebar-button:hover {
+    background: #5bbec3;
+    background: var(--color-background-offset);
+    color: var(--color-background);
+}
+
+/* Code highlight defaults */
+.hljs-keyword {
+    color: #fff
+}
+
+.hljs-link {
+    color: #0096db
+}
+
+.hljs-literal {
+    color: #ecff41
+}
+
+.hljs-section {
+    color: #f57226
+}
+
+.hljs-selector-tag {
+    color: #c766cf
+}
+
+.hljs-addition {
+    color: rgb(142, 127, 211)
+}
+
+.hljs-attribute {
+    color: rgb(238, 152, 83)
+}
+
+.hljs-built_in {
+    color: rgb(161, 204, 105)
+}
+
+.hljs-bullet {
+    color: rgb(138, 138, 180)
+}
+
+.hljs-name {
+    color: rgb(97, 99, 241)
+}
+
+.hljs-string {
+    color: rgb(177, 177, 177)
+}
+
+.hljs-symbol {
+    color: rgb(136, 221, 157)
+}
+
+.hljs-template-tag {
+    color: rgb(177, 127, 70)
+}
+
+.hljs-template-variable {
+    color: rgb(236, 82, 154)
+}
+
+.hljs-title {
+    color: rgb(255, 252, 47)
+}
+
+.hljs-type {
+    color: rgb(69, 248, 45)
+}
+
+.hljs-variable {
+    color: rgb(8, 233, 0)
+}
+
+.hljs-comment {
+    color: #919191
+}
+
+.hljs-deletion {
+    color: #cc2424
+}
+
+.hljs-meta {
+    color: #87a59e
+}
+
+.hljs-quote {
+    color: #9ac7c9
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-literal,
+.hljs-name,
+.hljs-section,
+.hljs-selector-tag,
+.hljs-strong,
+.hljs-title,
+.hljs-type {
+    font-weight: 700
+}
+
+.hljs-emphasis {
+    font-style: italic
 }
 
 /* Animations */

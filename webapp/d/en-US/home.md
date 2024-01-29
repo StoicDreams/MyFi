@@ -26,37 +26,34 @@ Whether you enabling integrations as part of your [Web UI](https://webui.stoicdr
 ```card "Subscriptions" "500" "title" "https://cdn.myfi.ws/v/Vecteezy/feedback-concept-customer-review-rating-online-shopping.svg" "/about/subscriptions" "More details about our upcoming subscription models."
 Our services will be offered through a customizeable and value focused subscription model.
 
-** Features **
-```list
-Single, low-cost starter subscription that provides the base of all subscriptions features, with other features implemented through an addon system.
-Subscription Manager for managing subscriptions and feature addons.
-Other managers for managing Companies, domains, apps, roles, and more.
-```
+**Features**
+
+- Single, low-cost starter subscription that provides the base of all subscriptions features, with other features implemented through an addon system.
+- Subscription Manager for managing subscriptions and feature addons.
+- Other managers for managing Companies, domains, apps, roles, and more.
 
 ```
 
 ```card "Feedback Services" "500" "title" "https://cdn.myfi.ws/v/Vecteezy/feedback-concept-customer-review-rating-online-shopping.svg" "/about/feedback_services" "More details about our upcoming feedback APIs and services."
 Services for storing, viewing, and managing customer feedback.
 
-** Features **
-```list
-Easy integration into [Web UI](https://webui.stoicdreams.com).
-Portal for viewing and managing feedback.
-APIs for saving, retrieving, and managing feedback.
-```
+**Features**
+
+- Easy integration into [Web UI](https://webui.stoicdreams.com).
+- Portal for viewing and managing feedback.
+- APIs for saving, retrieving, and managing feedback.
 
 ```
 
 ```card "Account Services" "500" "title" "https://cdn.myfi.ws/v/Vecteezy/people-go-team-one-after-another-to-their-goal-to-move-up.svg" "/about/account_services" "More details about our upcoming account APIs and services."
 APIs for Stoic Dreams single sign-on account services. Includes session management, sign-in, and sign-out, and storing user information.
 
-** Features **
-```list
-Easy integration into [Web UI](https://webui.stoicdreams.com).
-Automatic integration with other MyFi services for secure data management linked to users.
-Single sign-on for all MyFi hosted accounts.
-Customizeable Role/User based permission system.
-```
+**Features**
+
+- Easy integration into [Web UI](https://webui.stoicdreams.com).
+- Automatic integration with other MyFi services for secure data management linked to users.
+- Single sign-on for all MyFi hosted accounts.
+- Customizeable Role/User based permission system.
 
 ```
 ````
