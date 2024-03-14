@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 /// About Subscriptions page
-pub fn page_subscriptions(_contexts: Contexts) -> Html {
+pub fn page_subscriptions(_contexts: &Contexts) -> Html {
     set_title("MyFi - Subscription Management & Services");
     html! {
         <>

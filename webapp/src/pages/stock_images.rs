@@ -5,7 +5,7 @@ use crate::prelude::*;
 use webui::prelude::serde::*;
 
 /// Stock Images page
-pub fn page_stock_images(_contexts: Contexts) -> Html {
+pub fn page_stock_images(_contexts: &Contexts) -> Html {
     set_title("MyFi - Stock Images");
     html! {
         <>

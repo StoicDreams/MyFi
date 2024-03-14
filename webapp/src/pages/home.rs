@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 /// App home page
-pub fn page_home(_contexts: Contexts) -> Html {
+pub fn page_home(_contexts: &Contexts) -> Html {
     set_title("MyFi - API Services and Content Management");
     html! {
         <>

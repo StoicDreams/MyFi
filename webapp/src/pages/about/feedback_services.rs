@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 /// About Feedback Services page
-pub fn page_feedback_services(_contexts: Contexts) -> Html {
+pub fn page_feedback_services(_contexts: &Contexts) -> Html {
     set_title("MyFi - Feedback Services");
     html! {
         <>

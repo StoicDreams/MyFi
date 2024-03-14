@@ -9,7 +9,7 @@ pub use subscriptions::*;
 pub use crate::prelude::*;
 
 /// About page
-pub fn page_about(_contexts: Contexts) -> Html {
+pub fn page_about(_contexts: &Contexts) -> Html {
     set_title("About MyFi Services");
     html! {
         <>
