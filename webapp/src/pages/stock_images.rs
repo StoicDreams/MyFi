@@ -166,10 +166,10 @@ fn render_stock_images() -> Html {
                             </Button>
                         }
                         <Button class={default_button.to_string()} onclick={onclick_prev} disabled={disable_prev}>
-                            <i class="fa-solid fa-chevron-left" />
+                            {FaIcon::solid("chevron-left").to_html()}
                         </Button>
                         <Button class={default_button.to_string()} onclick={onclick_next} disabled={disable_next}>
-                            <i class="fa-solid fa-chevron-right" />
+                            {FaIcon::solid("chevron-right").to_html()}
                         </Button>
                     </Paper>
                 </Paper>
