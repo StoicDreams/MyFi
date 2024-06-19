@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Web UI",
+        "theme": "tertiary",
+        "avatar": "https://webui.stoicdreams.com/Logo.svg",
+        "link": "https://webui.stoicdreams.com",
+        "body": "Our first Rust project, Web UI was originally designed to use Rust-based components and rendering. In 2024 we reconceptualized Web UI as a pure Vanilla JavaScript Web Component based library/framework.\n\nThis framework is being developed and used to power the latest iterations of Stoic Dreams' website projects."
+    }
+]

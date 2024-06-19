@@ -1,0 +1,51 @@
+[
+    {
+        "name": "Home",
+        "icon": "house",
+        "iconFamily": "duotone",
+        "url": "/"
+    },
+    {
+        "name": "About",
+        "icon": "circle-exclamation",
+        "iconFamily": "duotone",
+        "url": "/about"
+    },
+    {
+        "name": "Coming Soon",
+        "icon": "person-chalkboard",
+        "iconFamily": "duotone",
+        "children": [
+            {
+                "name": "Account Services",
+                "icon": "users-viewfinder",
+                "iconFamily": "duotone",
+                "url": "/about/account_services"
+            },
+            {
+                "name": "Feedback Services",
+                "icon": "comment-smile",
+                "iconFamily": "duotone",
+                "url": "/about/feedback_services"
+            },
+            {
+                "name": "Subscriptions",
+                "icon": "conveyor-belt-boxes",
+                "iconFamily": "duotone",
+                "url": "/about/subscriptions"
+            }
+        ]
+    },
+    {
+        "name": "Privacy",
+        "icon": "shield-exclamation",
+        "iconFamily": "duotone",
+        "url": "/privacy"
+    },
+    {
+        "name": "Terms",
+        "icon": "handshake",
+        "iconFamily": "duotone",
+        "url": "/terms"
+    }
+]
