@@ -1,4 +1,5 @@
 <webui-data data-page-title="MyFi - SAAS Content Delivery and Api Services" data-page-subtitle=""></webui-data>
+<webui-data data-page-next-page='{"name":"Feedback Services","href":"/about/feedback_services"}'></webui-data>
 
 <webui-page-segment elevation="10">
 
@@ -40,5 +41,3 @@ If you have ideas for services you would like to see from us, or on our we can i
 ### Other Stoic Dreams Tools & Offerings
 
 <webui-cards src="/cards/other-tools-and-offerings.json" card-width="500"></webui-cards>
-
-<webui-next-page name="Feedback Services" href="/about/feedback_services"></webui-next-page>
