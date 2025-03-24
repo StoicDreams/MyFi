@@ -3,3 +3,4 @@
 members = [
 	"webapp",
 ]
+resolver = "3"
