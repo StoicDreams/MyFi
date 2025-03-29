@@ -1,0 +1,109 @@
+{
+  "id": "c46b3129-0d3c-44c0-921d-6838c01fa99a",
+  "sections": [
+    {
+      "Id": "8c61c7db-9f58-4a39-adf7-bbff998c6a30",
+      "ContentType": 1,
+      "Content": "{\"Markdown\":\"Use the scripts below during development to perform desired tasks.\"}",
+      "OutputVariable": {
+        "Name": ""
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    },
+    {
+      "Id": "ba59e0f0-a02c-4f19-b880-0d8554d477a9",
+      "ContentType": 9,
+      "Content": "",
+      "OutputVariable": {
+        "Name": ""
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    },
+    {
+      "Id": "1d3b7537-c1d1-46eb-934a-a27921ddfed0",
+      "ContentType": 3,
+      "Name": "Build Image Data",
+      "Content": "{\"PowerShell\":\"start pwsh \\u0027-NoExit -command \\u0022$Host.UI.RawUI.WindowTitle = \\u0027\\u0027Rust App Demo\\u0027\\u0027\\u0022\\u0027\\n$wshell = New-Object -ComObject wscript.shell\\n$wshell.AppActivate(\\u0027Build Image Data\\u0027)\\nSleep 1\\n$wshell.SendKeys(\\u0027.\\\\PowerShell\\\\BuildImageData.ps1~\\u0027)\\n\\n\"}",
+      "OutputVariable": {
+        "Name": "output"
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    },
+    {
+      "Id": "3052a3ce-091a-4474-87ef-8b8666f96075",
+      "ContentType": 3,
+      "Name": "Format",
+      "Content": "{\"PowerShell\":\"cargo fmt\"}",
+      "OutputVariable": {
+        "Name": "output"
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    },
+    {
+      "Id": "39353d17-4168-4c0d-9fad-c7e906013774",
+      "ContentType": 3,
+      "Name": "Lint",
+      "Content": "{\"PowerShell\":\"cargo clippy\"}",
+      "OutputVariable": {
+        "Name": "output"
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    },
+    {
+      "Id": "b1d8d096-292b-4c6a-a651-26655951f22a",
+      "ContentType": 3,
+      "Name": "Run WebUI",
+      "Content": "{\"PowerShell\":\"cd webapp\\nwebui\"}",
+      "OutputVariable": {
+        "Name": "output"
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    },
+    {
+      "Id": "dd2ae33a-ca52-4e36-9c57-5cb71b22d4f2",
+      "ContentType": 3,
+      "Name": "Run Web App",
+      "Content": "{\"PowerShell\":\"start pwsh \\u0027-NoExit -command \\u0022$Host.UI.RawUI.WindowTitle = \\u0027\\u0027Rust App Demo\\u0027\\u0027\\u0022\\u0027\\n$wshell = New-Object -ComObject wscript.shell\\n$wshell.AppActivate(\\u0027Rust App Demo\\u0027)\\nSleep 1\\n$wshell.SendKeys(\\u0027cd webapp~\\u0027)\\n$wshell.SendKeys(\\u0027trunk serve --open~\\u0027)\\n\\n\"}",
+      "OutputVariable": {
+        "Name": "output"
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    },
+    {
+      "Id": "f1f1c8b0-f1da-4721-8122-76ff718293b6",
+      "ContentType": 10,
+      "Content": "",
+      "OutputVariable": {
+        "Name": ""
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    },
+    {
+      "Id": "54899bf6-4bd8-493e-9a32-2f4baf41cb24",
+      "ContentType": 6,
+      "Content": "{\"Variable\":{\"Name\":\"output\"}}",
+      "OutputVariable": {
+        "Name": ""
+      },
+      "ActiveId": 1,
+      "ConditionValue": "",
+      "ConditionRequired": ""
+    }
+  ]
+}
