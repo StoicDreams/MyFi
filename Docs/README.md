@@ -1,6 +1,6 @@
 # MyFi
 
-[Version: 0.1.1](https://github.com/StoicDreams/MyFi)
+[Version: 0.1.2](https://github.com/StoicDreams/MyFi)
 
 [WebUI Version: 0.10.11](https://github.com/StoicDreams/WebUI)
 
