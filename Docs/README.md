@@ -1,8 +1,8 @@
 # MyFi
 
-[Version: 0.1.2](https://github.com/StoicDreams/MyFi)
+[Version: 0.1.3](https://github.com/StoicDreams/MyFi)
 
-[WebUI Version: 0.10.11](https://github.com/StoicDreams/WebUI)
+[WebUI Version: 0.11.2](https://github.com/StoicDreams/WebUI)
 
 API Services for Stoic Dreams
 
