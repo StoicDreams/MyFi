@@ -15,6 +15,6 @@
         "name": "Account Services",
         "avatar": "https://cdn.myfi.ws/v/Vecteezy/people-go-team-one-after-another-to-their-goal-to-move-up.svg",
         "link": "/about/account_services",
-        "body": "APIs for Stoic Dreams single sign-on account services. Includes session management, sign-in, and sign-out, and storing user information.\n\n**Features**\n\n- Easy integration into [Web UI](https://webui.stoicdreams.com).\n- Automatic integration with other MyFi services for secure data management linked to users.\n- Single sign-on for all MyFi hosted accounts.\n- Customizeable Role/User based permission system."
+        "body": "APIs for Stoic Dreams single sign-on account services. Includes session management, sign-in, and sign-out, and storing user information.\n\n**Features**\n\n- Easy integration into [Web UI](https://webui.stoicdreams.com).\n- Automatic integration with other My Fidelity services for secure data management linked to users.\n- Single sign-on for all My Fidelity hosted accounts.\n- Customizeable Role/User based permission system."
     }
 ]

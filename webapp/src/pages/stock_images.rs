@@ -6,7 +6,7 @@ use webui::prelude::serde::*;
 
 /// Stock Images page
 pub fn page_stock_images(_contexts: &Contexts) -> Html {
-    set_title("MyFi - Stock Images");
+    set_title("My Fidelity - Stock Images");
     html! {
         <>
             <MarkdownContent href="/d/en-US/stock_images.md" />
