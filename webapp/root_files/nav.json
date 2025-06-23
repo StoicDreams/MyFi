@@ -3,26 +3,5 @@
         "name": "Home",
         "icon": "home",
         "url": "/"
-    },
-    {
-        "name": "Coming Soon",
-        "icon": "person-chalkboard",
-        "children": [
-            {
-                "name": "Account Services",
-                "icon": "users-viewfinder",
-                "url": "/about/account_services"
-            },
-            {
-                "name": "Feedback Services",
-                "icon": "comment-smile",
-                "url": "/about/feedback_services"
-            },
-            {
-                "name": "Subscriptions",
-                "icon": "conveyor-belt-boxes",
-                "url": "/about/subscriptions"
-            }
-        ]
     }
 ]
