@@ -1,4 +1,4 @@
-# MyFi
+# My Fidelity
 
 [Version: 0.1.3](https://github.com/StoicDreams/MyFi)
 
