@@ -3,5 +3,47 @@
         "name": "Home",
         "icon": "home",
         "url": "/"
+    },
+    {
+        "name": "Url Shortener",
+        "icon": "url",
+        "url": "/shorturl",
+        "role": 1
+    },
+    {
+        "name": "Companies",
+        "icon": "companies",
+        "url": "/companies",
+        "role": 1
+    },
+    {
+        "name": "Domains",
+        "icon": "domain",
+        "url": "/domains",
+        "role": 1
+    },
+    {
+        "name": "Subscriptions",
+        "icon": "subscriptions",
+        "url": "/subscriptions",
+        "role": 1
+    },
+    {
+        "name": "Feedback",
+        "icon": "messages",
+        "url": "/feedback",
+        "role": 1
+    },
+    {
+        "name": "Newsletters",
+        "icon": "newspaper",
+        "url": "/newsletters",
+        "role": 1
+    },
+    {
+        "name": "Users",
+        "icon": "users",
+        "url": "/users",
+        "role": 1
     }
 ]

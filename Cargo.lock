@@ -236,9 +236,9 @@ dependencies = [
 
 [[package]]
 name = "bumpalo"
-version = "3.18.1"
+version = "3.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "793db76d6187cd04dff33004d8e6c9cc4e05cd330500379d2394209271b4aeee"
+checksum = "46c5e41b57b8bba42a04676d81cb89e9ee8e859a1a66f80a5a72e1cb76b34d43"
 
 [[package]]
 name = "bytecheck"
@@ -1165,7 +1165,7 @@ dependencies = [
 [[package]]
 name = "webui"
 version = "0.11.2"
-source = "git+https://github.com/StoicDreams/WebUI?branch=main#829f767d5f9c2d4956298ba7e5bea9aa4d59676a"
+source = "git+https://github.com/StoicDreams/WebUI?branch=main#a2ab878963ac051ebef1b7b4139efbb5297cd0ee"
 dependencies = [
  "async-std",
  "chrono",
