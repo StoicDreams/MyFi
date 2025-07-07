@@ -1,8 +1,17 @@
 <webui-data data-page-title="URL Shortener" data-page-subtitle=""></webui-data>
 
-<webui-quote theme="warning">
-Coming Soon
-</webui-quote>
+<webui-restrict-to-role role="1">
+    <template slot="valid">
+        <webui-quote theme="warning">
+            Coming Soon
+        </webui-quote>
+    </template>
+    <template slot="invalid">
+        <webui-quote theme="warning">
+            You must be signed in to use this service.
+        </webui-quote>
+    </template>
+</webui-restrict-to-role>
 
 <webui-page-segment elevation="10">
 
