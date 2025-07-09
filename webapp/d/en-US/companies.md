@@ -28,7 +28,7 @@
                         Provide the new name for company {TEMPLATE_NAME}.
                     </webui-page-segment>
                     <input type="hidden" name="companyId" value="{TEMPLATE_ID}" />
-                    <webui-input-text label="Company Name" name="name" maxlength="100"></webui-input-text>
+                    <webui-input-text label="Company Name" name="name" maxlength="100" value="{TEMPLATE_NAME}"></webui-input-text>
                 </template>
             </webui-dialog-action>
             <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete {TEMPLATE_NAME}" api="delete|/user/company" data-subscribe="page-company-{_ROWID}-delete" data-success="refresh-companies">
