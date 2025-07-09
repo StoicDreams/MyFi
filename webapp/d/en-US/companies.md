@@ -18,11 +18,11 @@
                 </template>
             </webui-dialog-action>
         </webui-page-segment>
-        <webui-report label="My Companies" api="/user/companies" sort-column="name" bordered theme="info">
+        <webui-report label="My Companies" api="/user/companies" sort-column="name" bordered theme="info" data-subscribe="refresh-companies:loadData">
         <template slot="column" name="action">
             <webui-button theme="info" start-icon="edit" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-company-{_ROWID}-update"></webui-button>
             <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-company-{_ROWID}-delete"></webui-button>
-            <webui-dialog-action title="Update Name of {TEMPLATE_NAME}" confirm="Update Name" api="patch|/user/company" data-subscribe="page-company-{_ROWID}-update">
+            <webui-dialog-action title="Update Name of {TEMPLATE_NAME}" confirm="Update Name" api="patch|/user/company" data-subscribe="page-company-{_ROWID}-update" data-success="refresh-companies">
                 <template>
                     <webui-page-segment>
                         Provide the new name for company {TEMPLATE_NAME}.
@@ -31,7 +31,7 @@
                     <webui-input-text label="Company Name" name="name" maxlength="100"></webui-input-text>
                 </template>
             </webui-dialog-action>
-            <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete {TEMPLATE_NAME}" api="delete|/user/company" data-subscribe="page-company-{_ROWID}-delete">
+            <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete {TEMPLATE_NAME}" api="delete|/user/company" data-subscribe="page-company-{_ROWID}-delete" data-success="refresh-companies">
                 <template>
                     <webui-page-segment>
                         Please confirm you would like to delete {TEMPLATE_NAME}.
