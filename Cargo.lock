@@ -1165,7 +1165,7 @@ dependencies = [
 [[package]]
 name = "webui"
 version = "0.11.2"
-source = "git+https://github.com/StoicDreams/WebUI?branch=main#e2c0b6ec3cc8548c4ebfa28ecaf744978d0ca611"
+source = "git+https://github.com/StoicDreams/WebUI?branch=main#df0bc50efc4d01c51a48be897d5784050491cd76"
 dependencies = [
  "async-std",
  "chrono",
