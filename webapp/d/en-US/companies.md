@@ -19,7 +19,7 @@
             </webui-dialog-action>
         </webui-page-segment>
         <webui-report label="My Companies" api="/user/companies" sort-column="name" bordered theme="info" data-subscribe="refresh-companies:loadData" append-columns=":Action:">
-        <template slot="column" name="action">
+        <template slot="column" name="action" sortable="name;created;updated">
             <webui-button theme="info" start-icon="edit" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-company-{_ROWID}-update"></webui-button>
             <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-company-{_ROWID}-delete"></webui-button>
             <webui-dialog-action title="Update Name of {TEMPLATE_NAME}" confirm="Update Name" api="patch|/user/company" data-subscribe="page-company-{_ROWID}-update" data-success="refresh-companies">
