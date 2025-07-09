@@ -27,6 +27,7 @@
                     <webui-page-segment>
                         Provide the new name for company {TEMPLATE_NAME}.
                     </webui-page-segment>
+                    <input type="hidden" name="companyId" value="{TEMPLATE_ID}" />
                     <webui-input-text label="Company Name" name="name" maxlength="100"></webui-input-text>
                 </template>
             </webui-dialog-action>
