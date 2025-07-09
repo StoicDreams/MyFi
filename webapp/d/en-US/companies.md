@@ -6,7 +6,7 @@
             <webui-flex align="center" justify="right">
                 <webui-button data-trigger="page-company-create" data-value="1">Add Company</webui-button>
             </webui-flex>
-            <webui-dialog-action title="Add Company" confirm="Add Company" api="post|/user/company/create" data-subscribe="page-company-create" header-message="x-debug|x-message">
+            <webui-dialog-action title="Add Company" confirm="Add Company" api="post|/user/company/create" data-subscribe="page-company-create" header-message="x-debug|x-message" data-success="refresh-companies">
                 <template>
                     <webui-page-segment>
                         Provide the name of the company to add.
