@@ -36,6 +36,10 @@
                     <webui-page-segment>
                         Please confirm you would like to delete {TEMPLATE_NAME}.
                     </webui-page-segment>
+                    <input type="hidden" name="companyId" value="{TEMPLATE_ID}" />
+                    <webui-quote theme="danger">
+                        Note: This will delete the company and all data directly associated with this company, including domains, feedback, etc.
+                    </webui-quote>
                 </template>
             </webui-dialog-action>
         </template>
