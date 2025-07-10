@@ -3,7 +3,7 @@
 <webui-restrict-to-role role="1">
     <template slot="valid">
         <webui-page-segment elevation="10">
-            <webui-dropdown name="filter-domains.companyId" label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id" api="user/companies/options"></webui-dropdown>
+            <webui-dropdown label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id|filter-domains.companyId" api="user/companies/options"></webui-dropdown>
         </webui-page-segment>
         <webui-page-segment>
             <webui-flex align="center" justify="right">
