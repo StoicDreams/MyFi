@@ -5,7 +5,6 @@
         <webui-page-segment elevation="10">
             <webui-dropdown label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id|filter-domains.companyId" api="user/companies/options"></webui-dropdown>
         </webui-page-segment>
-        <input type="hidden" name="filter-domains.companyId" data-subscribe="session-company-id:value" data-trigger="filter-domains.companyId" />
         <webui-page-segment>
             <webui-flex align="center" justify="right">
                 <webui-button data-trigger="page-domain-create" data-value="1">Add Domain</webui-button>
