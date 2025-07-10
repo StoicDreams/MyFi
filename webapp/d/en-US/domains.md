@@ -5,6 +5,7 @@
         <webui-page-segment elevation="10">
             <webui-dropdown label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id" api="user/companies/options"></webui-dropdown>
         </webui-page-segment>
+        <input type="hidden" name="filter-domains.companyId" data-subscribe="session-company-id" data-trigger="filter-domains.companyId" value="{SESSION-COMPANY-ID}" />
         <webui-page-segment>
             <webui-flex align="center" justify="right">
                 <webui-button data-trigger="page-domain-create" data-value="1">Add Domain</webui-button>
@@ -21,7 +22,7 @@
                 </template>
             </webui-dialog-action>
         </webui-page-segment>
-        <webui-report label="My Domains" api="/user/domains" filters="filter-domains" sort-column="name" bordered theme="info" data-subscribe="refresh-domains:loadData" append-columns=":Action:" sortable="name;created;updated">
+        <webui-report label="My Domains" api="/user/domains" filters="filter-domains" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData;refresh-domains:loadData" append-columns=":Action:" sortable="name;created;updated">
         <template slot="column" name="action">
             <webui-button theme="info" start-icon="edit" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-update"></webui-button>
             <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-delete"></webui-button>
@@ -52,7 +53,7 @@
         <webui-quote theme="info">
             Domains must be verified before they can be used for services. Click Instructions to view instructions on how to verify your domain.
         </webui-quote>
-        <webui-report label="My Pending Domains" api="/user/domains/pending" filters="filter-domains" sort-column="name" bordered theme="info" data-subscribe="refresh-domains:loadData" append-columns=":Actions:" sortable="name;domain;status;created;updated">
+        <webui-report label="My Pending Domains" api="/user/domains/pending" filters="filter-domains" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData;refresh-domains:loadData" append-columns=":Actions:" sortable="name;domain;status;created;updated">
         <template slot="column" name="action">
             <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-delete"></webui-button>
             <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete {TEMPLATE_NAME}" api="delete|/user/domain/pending" data-subscribe="page-domain-{_ROWID}-delete" data-success="refresh-domains">
