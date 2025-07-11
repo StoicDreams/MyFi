@@ -14,7 +14,7 @@
                     <webui-page-segment>
                         Provide the name of the domain to add.
                     </webui-page-segment>
-                    <input type="hidden" name="companyId" data-subscribe="session-company-id:value" />
+                    <input type="hidden" name="companyId" data-subscribe="session-company-id" />
                     <webui-input-text label="Domain Name" name="name" placeholder="Your Domain Name" maxlength="100"></webui-input-text>
                     <webui-input-text label="Domain" name="dom" placeholder="www.yoursite.com" maxlength="500"></webui-input-text>
                     <webui-quote theme="info">
