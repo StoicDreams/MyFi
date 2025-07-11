@@ -23,8 +23,8 @@
                 </template>
             </webui-dialog-action>
         </webui-page-segment>
-        <webui-report label="My Domains" api="/user/domains" filters="filter-domains" required-filters="companyId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|refresh-domains:loadData" append-columns=":Action:" sortable="name;created;updated">
-        <template slot="column" name="action">
+        <webui-report label="My Domains" api="/user/domains" filters="filter-domains" required-filters="companyId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|refresh-domains:loadData" append-columns=":Actions:" sortable="name;created;updated">
+        <template slot="column" name="actions">
             <webui-button theme="info" start-icon="edit" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-update"></webui-button>
             <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-delete"></webui-button>
             <webui-dialog-action title="Update Name of {TEMPLATE_DOMAIN}" confirm="Update Name" api="patch|/user/domain" data-subscribe="page-domain-{_ROWID}-update" data-success="refresh-domains">
@@ -33,7 +33,7 @@
                         Provide the new name for domain {TEMPLATE_DOMAIN}.
                     </webui-page-segment>
                     <input type="hidden" name="domainId" value="{TEMPLATE_ID}" />
-                    <input type="hidden" name="companyId" data-subscribe="session-company-id:value" />
+                    <input type="hidden" name="companyId" data-subscribe="session-company-id" />
                     <webui-input-text label="Domain Name" name="name" maxlength="100" value="{TEMPLATE_NAME}"></webui-input-text>
                 </template>
             </webui-dialog-action>
@@ -43,7 +43,7 @@
                         Please confirm you would like to delete {TEMPLATE_NAME}.
                     </webui-page-segment>
                     <input type="hidden" name="domainId" value="{TEMPLATE_ID}" />
-                    <input type="hidden" name="companyId" data-subscribe="session-company-id:value" />
+                    <input type="hidden" name="companyId" data-subscribe="session-company-id" />
                     <webui-quote theme="danger">
                         Note: This will delete the domain and all data directly associated with this domain, feedback, etc.
                     </webui-quote>
@@ -55,7 +55,7 @@
             Domains must be verified before they can be used for services. Click Instructions to view instructions on how to verify your domain.
         </webui-quote>
         <webui-report label="My Pending Domains" api="/user/domains/pending" filters="filter-domains" required-filters="companyId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|refresh-domains:loadData" append-columns=":Actions:" sortable="name;domain;status;created;updated">
-        <template slot="column" name="action">
+        <template slot="column" name="actions">
             <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-delete"></webui-button>
             <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete {TEMPLATE_NAME}" api="delete|/user/domain/pending" data-subscribe="page-domain-{_ROWID}-delete" data-success="refresh-domains">
                 <template>
@@ -63,7 +63,7 @@
                         Please confirm you would like to delete {TEMPLATE_NAME}.
                     </webui-page-segment>
                     <input type="hidden" name="domainId" value="{TEMPLATE_ID}" />
-                    <input type="hidden" name="companyId" data-subscribe="session-company-id:value" />
+                    <input type="hidden" name="companyId" data-subscribe="session-company-id" />
                     <webui-quote theme="danger">
                         Note: This will delete the domain {TEMPLATE_DOMAIN} and all data directly associated with this domain, feedback, etc.
                     </webui-quote>
