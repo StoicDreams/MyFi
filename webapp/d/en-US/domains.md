@@ -14,7 +14,7 @@
                     <webui-page-segment>
                         Provide the name of the domain to add.
                     </webui-page-segment>
-                    <input type="hidden" name="companyId" data-subscribe="session-company-id" />
+                    <input type="hidden" name="companyId" data-subscribe="session-company-id:value" />
                     <webui-input-text label="Domain Name" name="name" placeholder="Your Domain Name" maxlength="100"></webui-input-text>
                     <webui-input-text label="Domain" name="dom" placeholder="www.yoursite.com" maxlength="500"></webui-input-text>
                     <webui-quote theme="info">
@@ -33,7 +33,7 @@
                         Provide the new name for domain {TEMPLATE_DOMAIN}.
                     </webui-page-segment>
                     <input type="hidden" name="domainId" value="{TEMPLATE_ID}" />
-                    <input type="hidden" name="companyId" data-subscribe="session-company-id" />
+                    <input type="hidden" name="companyId" data-subscribe="session-company-id:value" />
                     <webui-input-text label="Domain Name" name="name" maxlength="100" value="{TEMPLATE_NAME}"></webui-input-text>
                 </template>
             </webui-dialog-action>
@@ -43,7 +43,7 @@
                         Please confirm you would like to delete {TEMPLATE_NAME}.
                     </webui-page-segment>
                     <input type="hidden" name="domainId" value="{TEMPLATE_ID}" />
-                    <input type="hidden" name="companyId" data-subscribe="session-company-id" />
+                    <input type="hidden" name="companyId" data-subscribe="session-company-id:value" />
                     <webui-quote theme="danger">
                         Note: This will delete the domain and all data directly associated with this domain, feedback, etc.
                     </webui-quote>
@@ -63,7 +63,7 @@
                         Please confirm you would like to delete {TEMPLATE_NAME}.
                     </webui-page-segment>
                     <input type="hidden" name="domainId" value="{TEMPLATE_ID}" />
-                    <input type="hidden" name="companyId" data-subscribe="session-company-id" />
+                    <input type="hidden" name="companyId" data-subscribe="session-company-id:value" />
                     <webui-quote theme="danger">
                         Note: This will delete the domain {TEMPLATE_DOMAIN} and all data directly associated with this domain, feedback, etc.
                     </webui-quote>
