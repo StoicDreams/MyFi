@@ -56,6 +56,14 @@
         </webui-quote>
         <webui-report label="My Pending Domains" api="/user/domains/pending" filters="filter-domains" required-filters="companyId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|refresh-domains:loadData" append-columns=":Actions:" sortable="name;domain;status;created;updated">
         <template slot="column" name="actions">
+            <webui-button theme="info" start-icon="bell" title="Instructions" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-instruct"></webui-button>
+            <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete {TEMPLATE_NAME}" api="delete|/user/domain/pending" data-subscribe="page-domain-{_ROWID}-instruct">
+                <template>
+                    <webui-page-segment>
+                        To confirm your domain {TEMPLATE_DOMAIN} you will need to add a record with this key {TEMPLATE_KEY}.
+                    </webui-page-segment>
+                </template>
+            </webui-dialog-action>
             <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-delete"></webui-button>
             <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete {TEMPLATE_NAME}" api="delete|/user/domain/pending" data-subscribe="page-domain-{_ROWID}-delete" data-success="refresh-domains">
                 <template>
