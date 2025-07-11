@@ -63,7 +63,7 @@
                 <webui-report label="My Pending Domains" api="/user/domains/pending" filters="filter-domains" required-filters="companyId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|refresh-domains:loadData" append-columns=":Actions:" sortable="name;domain;status;created;updated">
                 <template slot="column" name="actions">
                     <webui-button theme="info" start-icon="bell" title="Instructions" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-instruct"></webui-button>
-                    <webui-dialog-action title="Instructions for {TEMPLATE_NAME}" confirm="" data-subscribe="page-domain-{_ROWID}-instruct">
+                    <webui-dialog-action title="Instructions for {TEMPLATE_NAME}" confirm="Close" data-subscribe="page-domain-{_ROWID}-instruct">
                         <template>
                             <webui-page-segment>
                                 To confirm your domain {TEMPLATE_NAME} you will need to add a TXT record with this value `myfi:{TEMPLATE_KEY}` to your domain {TEMPLATE_DOMAIN}.
