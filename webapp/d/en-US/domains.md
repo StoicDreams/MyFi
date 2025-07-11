@@ -65,7 +65,7 @@
                     <input type="hidden" name="domainId" value="{TEMPLATE_ID}" />
                     <input type="hidden" name="companyId" data-subscribe="session-company-id" />
                     <webui-quote theme="danger">
-                        Note: This will delete the domain {TEMPLATE_DOMAIN} and all data directly associated with this domain, feedback, etc.
+                        Note: This will delete the pending domain {TEMPLATE_DOMAIN}.
                     </webui-quote>
                 </template>
             </webui-dialog-action>
