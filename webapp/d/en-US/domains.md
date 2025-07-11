@@ -54,14 +54,21 @@
         <webui-quote theme="info">
             Domains must be verified before they can be used for services. Click Instructions to view instructions on how to verify your domain.
         </webui-quote>
+        <webui-quote theme="info">
+            We treat sub-domains and root domains separately. For example, we have 2 websites - webui.stoicdreams.com and www.stoicdreams.com. This required us to setup 2 separate domains. We cannot just use stoicdreams.com to group the 2 websites together.
+        </webui-quote>
         <webui-report label="My Pending Domains" api="/user/domains/pending" filters="filter-domains" required-filters="companyId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|refresh-domains:loadData" append-columns=":Actions:" sortable="name;domain;status;created;updated">
         <template slot="column" name="actions">
             <webui-button theme="info" start-icon="bell" title="Instructions" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-instruct"></webui-button>
             <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete {TEMPLATE_NAME}" api="delete|/user/domain/pending" data-subscribe="page-domain-{_ROWID}-instruct">
                 <template>
                     <webui-page-segment>
-                        To confirm your domain {TEMPLATE_DOMAIN} you will need to add a record with this key {TEMPLATE_KEY}.
+                        To confirm your domain {TEMPLATE_NAME} you will need to add a TXT record with this value `myfi:{TEMPLATE_KEY}` to your domain {TEMPLATE_DOMAIN}.
                     </webui-page-segment>
+                    <webui-code label="TXT Record Value">myfi:{TEMPLATE_KEY}</webui-code>
+                    <webui-quote theme="info">
+                        Note: The TXT record must be set for the exact domain name. Do not set the record for @.domain.com when your domain is www.domain.com.
+                    </webui-quote>
                 </template>
             </webui-dialog-action>
             <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-delete"></webui-button>
