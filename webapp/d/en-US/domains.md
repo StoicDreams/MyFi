@@ -29,7 +29,7 @@
                 <webui-report label="My Domains" api="/user/domains" filters="filter-domains" required-filters="companyId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|refresh-domains:loadData" append-columns=":Actions:" sortable="name;created;updated">
                 <template slot="column" name="actions">
                     <webui-button theme="info" start-icon="pencil|has-shadow:true|shade:tri" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-update"></webui-button>
-                    <webui-button theme="danger" start-icon="ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-delete"></webui-button>
+                    <webui-button theme="danger" start-icon="circle|has-shadow:true|ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-domain-{_ROWID}-delete"></webui-button>
                     <webui-dialog-action title="Update Name of {TEMPLATE_DOMAIN}" confirm="Update Name" api="patch|/user/domain" data-subscribe="page-domain-{_ROWID}-update" data-success="refresh-domains">
                         <template>
                             <webui-page-segment>
