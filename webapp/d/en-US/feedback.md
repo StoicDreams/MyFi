@@ -10,23 +10,13 @@
         </webui-page-segment>
         <webui-report label="My Feedback" api="/user/feedback" sort-column="created" sort-order="asc" bordered theme="info" data-subscribe="refresh-feedback:loadData|filter-feedback:loadData" append-columns=":Action:" filters="filter-feedback" required-filters="companyId;domainId" sortable="created">
         <template slot="column" name="action">
-            <webui-button theme="info" start-icon="pencil|has-shadow:true|shade:tri" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-feedback-{_ROWID}-update"></webui-button>
             <webui-button theme="danger" start-icon="circle|has-shadow:true|ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-feedback-{_ROWID}-delete"></webui-button>
-            <webui-dialog-action title="Update Name of {TEMPLATE_NAME}" confirm="Update Name" api="patch|/user/company" data-subscribe="page-feedback-{_ROWID}-update" data-success="refresh-feedback">
-                <template>
-                    <webui-page-segment>
-                        Provide the new name for company {TEMPLATE_NAME}.
-                    </webui-page-segment>
-                    <input type="hidden" name="companyId" value="{TEMPLATE_ID}" />
-                    <webui-input-text label="Company Name" name="name" maxlength="100" value="{TEMPLATE_NAME}"></webui-input-text>
-                </template>
-            </webui-dialog-action>
-            <webui-dialog-action title="Delete Feedback" confirm="Delete Feedback" api="delete|/user/company" data-subscribe="page-feedback-{_ROWID}-delete" data-success="refresh-feedback">
+            <webui-dialog-action title="Delete Feedback" confirm="Delete Feedback" api="delete|/user/feedback" data-subscribe="page-feedback-{_ROWID}-delete" data-success="refresh-feedback">
                 <template>
                     <webui-page-segment>
                         Please confirm you would like to delete this feedback.
                     </webui-page-segment>
-                    <input type="hidden" name="companyId" value="{TEMPLATE_ID}" />
+                    <input type="hidden" name="feedbackId" value="{TEMPLATE_ID}" />
                 </template>
             </webui-dialog-action>
         </template>
