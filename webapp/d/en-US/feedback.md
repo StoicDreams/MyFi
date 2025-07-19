@@ -8,7 +8,7 @@
                 <webui-dropdown label="Domain" data-subscribe="session-domain-id|filter-feedback.domainId:loadData" data-trigger="session-domain-id|filter-feedback.domainId" data-api="filter-feedback" api="user/domains/options"></webui-dropdown>
             </webui-flex>
         </webui-page-segment>
-        <webui-report label="My Feedback" api="/user/feedback" sort-column="created" bordered theme="info" data-subscribe="refresh-feedback:loadData|filter-feedback:loadData" append-columns=":Action:" filters="filter-feedback" sortable="created">
+        <webui-report label="My Feedback" api="/user/feedback" sort-column="created" bordered theme="info" data-subscribe="refresh-feedback:loadData|filter-feedback:loadData" append-columns=":Action:" filters="filter-feedback" required-filters="companyId;domainId" sortable="created">
         <template slot="column" name="action">
             <webui-button theme="info" start-icon="pencil|has-shadow:true|shade:tri" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-feedback-{_ROWID}-update"></webui-button>
             <webui-button theme="danger" start-icon="circle|has-shadow:true|ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-feedback-{_ROWID}-delete"></webui-button>
