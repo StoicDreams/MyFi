@@ -31,7 +31,7 @@
             </webui-dialog-action>
         </template>
         </webui-report>
-        <webui-report label="Feedback Counts" api="/user/feedback/counts" sort-column="latest" sort-order="desc" bordered theme="info" data-subscribe="refresh-feedback:loadData" append-columns="" filters="" sortable="latest;domain;company"></webui-report>
+        <webui-report label="Feedback Counts" api="/user/feedback/counts" sort-column="latest" sort-order="desc" bordered theme="info" data-subscribe="refresh-feedback:loadData" append-columns="" filters="" sortable="latest;domain;company;count"></webui-report>
     </template>
     <template slot="invalid">
         <webui-quote theme="warning">
