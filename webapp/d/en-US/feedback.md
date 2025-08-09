@@ -5,7 +5,7 @@
         <webui-page-segment elevation="10">
             <webui-flex gap="3" class="container" wrap-at="600">
                 <webui-dropdown label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id|filter-feedback.companyId" api="user/companies/options"></webui-dropdown>
-                <webui-dropdown label="Domain" data-subscribe="session-domain-id|filter-feedback.domainId:loadData" data-trigger="session-domain-id|filter-feedback.domainId" data-api="filter-feedback" api="user/domains/options"></webui-dropdown>
+                <webui-dropdown label="Domain" data-subscribe="session-domain-id|filter-feedback.companyId:loadData" data-trigger="session-domain-id|filter-feedback.domainId" data-api="filter-feedback" api="user/domains/options"></webui-dropdown>
             </webui-flex>
         </webui-page-segment>
         <webui-report label="My Feedback" api="/user/feedback" sort-column="created" sort-order="asc" bordered theme="info" data-subscribe="refresh-feedback:loadData|filter-feedback:loadData" append-columns=":Action:" filters="filter-feedback" required-filters="companyId;domainId" sortable="created">
