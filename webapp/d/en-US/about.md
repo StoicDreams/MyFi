@@ -6,4 +6,4 @@ My Fidelity was created to be a central hub for all Stoic Dreams' API services a
 
 </webui-page-segment>
 
-<webui-content src="https://cdn.myfi.ws/d/en-US/about-stoic-dreams.md"></webui-content>
+<webui-content cache src="https://cdn.myfi.ws/d/en-US/about-stoic-dreams.md"></webui-content>
