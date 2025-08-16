@@ -21,7 +21,7 @@ Before running this project, follow the [Web CLI Setup](https://webui.stoicdeams
 To run the project locally, you can use the following command:
 
 ```terminal:Run the project from the root directory
-../PowerShell/RunLocal.ps1 -port 3210
+./PowerShell/RunLocal.ps1 -port 3210
 ```
 
 ## Author
