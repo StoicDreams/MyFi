@@ -4,5 +4,8 @@
     "appCompanySingular": "Stoic Dreams",
     "appApi": "https://api.myfi.ws",
     "rolesApi": "user/roles",
-    "dynNavRoutes": []
+    "dynNavRoutes": [
+        "/content",
+        "/forms"
+    ]
 }
