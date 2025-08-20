@@ -5,6 +5,12 @@
         "url": "/"
     },
     {
+        "name": "Api",
+        "icon": "diamond",
+        "url": "/openapi",
+        "role": 0
+    },
+    {
         "name": "Companies",
         "icon": "companies",
         "url": "/companies",
