@@ -10,9 +10,9 @@ Our initial batch of BAAS services are currently in development and will be laun
 
 <webui-restrict-to-role role="1">
     <template slot="valid">
-        <webui-content cache src="d/en-US/content/home-dashboard.md"></webui-content>
+        <webui-content cache src="d/content/home-dashboard.md"></webui-content>
     </template>
     <template slot="invalid">
-        <webui-content cache src="d/en-US/content/home-guest.md"></webui-content>
+        <webui-content cache src="d/content/home-guest.md"></webui-content>
     </template>
 </webui-restrict-to-role>
