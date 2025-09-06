@@ -1,8 +1,8 @@
 # My Fidelity
 
-[Version: 0.1.4](https://github.com/StoicDreams/MyFi)
+[Version: 0.1.5](https://github.com/StoicDreams/MyFi)
 
-[WebUI Version: 0.11.3](https://github.com/StoicDreams/WebUI)
+[WebUI](https://github.com/StoicDreams/WebUI)
 
 Portal for managing My Fidelity BAAS (Backend-As-A-Service) Services for Stoic Dreams customers.
 
