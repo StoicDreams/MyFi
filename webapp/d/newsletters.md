@@ -54,8 +54,8 @@
                 </webui-dialog-action>
                 <webui-report label="My Newsletter Campaigns" api="/user/newsletters/campaigns" filters="filter-newsletter" required-filters="companyId;domainId;newsletterId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|session-domain-id:loadData|session-newsletter-id:loadData|refresh-newsletters:loadData" append-columns=":Actions:" sortable="name;created;updated">
                 <template slot="column" name="actions">
-                    <webui-button theme="info" start-icon="pencil|has-shadow:true|shade:tri" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-news-campaign-{_ROWID}-update"></webui-button>
-                    <webui-button theme="danger" start-icon="circle|has-shadow:true|ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-news-campaign-{_ROWID}-delete"></webui-button>
+                    <webui-button theme="info" start-icon="pencil|shade:tri" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-news-campaign-{_ROWID}-update"></webui-button>
+                    <webui-button theme="danger" start-icon="circle|ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-news-campaign-{_ROWID}-delete"></webui-button>
                     <webui-dialog-action title="Update Campaign {TEMPLATE_NAME}" confirm="Update Campaign" api="patch|/user/newsletter/campaign" data-subscribe="page-news-campaign-{_ROWID}-update" data-success="refresh-newsletters">
                         <template>
                             <webui-page-segment>
@@ -92,8 +92,8 @@
             <webui-content slot="content" theme="default">
                 <webui-report label="My Newsletters" api="/user/newsletters" filters="filter-newsletter" required-filters="companyId;domainId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|session-domain-id:loadData|refresh-newsletters:loadData" append-columns=":Actions:" sortable="name;created;updated">
                 <template slot="column" name="actions">
-                    <webui-button theme="info" start-icon="pencil|has-shadow:true|shade:tri" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-newsletter-{_ROWID}-update"></webui-button>
-                    <webui-button theme="danger" start-icon="circle|has-shadow:true|ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-newsletter-{_ROWID}-delete"></webui-button>
+                    <webui-button theme="info" start-icon="pencil|shade:tri" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-newsletter-{_ROWID}-update"></webui-button>
+                    <webui-button theme="danger" start-icon="circle|ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-newsletter-{_ROWID}-delete"></webui-button>
                     <webui-dialog-action title="Update Newsletter {TEMPLATE_NAME}" confirm="Update Newsletter" api="patch|/user/newsletter" data-subscribe="page-newsletter-{_ROWID}-update" data-success="refresh-newsletters">
                         <template>
                             <webui-page-segment>
