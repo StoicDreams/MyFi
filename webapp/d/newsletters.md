@@ -5,7 +5,7 @@
         <webui-page-segment elevation="10">
             <webui-flex gap="3" class="container" wrap-at="600">
                 <webui-dropdown label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id|filter-newsletter.companyId" api="user/companies/options"></webui-dropdown>
-                <webui-dropdown label="Domain" data-subscribe="session-domain-id|filter-newsletter.domainId:loadData" data-trigger="session-domain-id|filter-newsletter.domainId" data-api="filter-newsletter" api="user/domains/options"></webui-dropdown>
+                <webui-dropdown label="Domain" data-subscribe="session-domain-id|filter-newsletter.domainId:loadData" data-trigger="session-domain-id|filter-newsletter.domainId" data-api="filter-newsletter" api="user/domains/options" data-fields="companyId"></webui-dropdown>
                 <webui-flex align="center" justify="right">
                     <webui-button data-trigger="page-newsletter-create" data-value="1">Add Newsletter</webui-button>
                 </webui-flex>
@@ -29,7 +29,7 @@
             <webui-button align="left" slot="tabs">Campaigns</webui-button>
             <webui-content slot="content" theme="default">
                 <webui-page-segment>
-                    <webui-dropdown label="Newsletter" data-subscribe="session-newsletter-id" data-trigger="session-newsletter-id|filter-newsletter.newsletterId" api="user/companies/options"></webui-dropdown>
+                    <webui-dropdown label="Newsletter" data-subscribe="session-newsletter-id" data-trigger="session-newsletter-id|filter-newsletter.newsletterId" api="user/companies/options" data-fields="companyId|domainId"></webui-dropdown>
                     <webui-flex align="center" justify="right">
                         <webui-button data-trigger="page-news-campaign-create" data-value="1">Add Campaign</webui-button>
                     </webui-flex>
@@ -90,7 +90,7 @@
             </webui-content>
             <webui-button align="left" slot="tabs">Newsletters</webui-button>
             <webui-content slot="content" theme="default">
-                <webui-report label="My Newsletters" api="/user/newsletters" filters="filter-newsletter" required-filters="companyId;domainId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|session-domain-id:loadData|refresh-newsletters:loadData" append-columns=":Actions:" sortable="name;created;updated">
+                <webui-report label="My Newsletters" api="/user/newsletters" filters="filter-newsletter" required-filters="companyId;domainId;newsletterId" sort-column="name" bordered theme="info" data-subscribe="session-company-id:loadData|session-domain-id:loadData|refresh-newsletters:loadData" append-columns=":Actions:" sortable="name;created;updated">
                 <template slot="column" name="actions">
                     <webui-button theme="info" start-icon="pencil|shade:tri" title="Update Name" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-newsletter-{_ROWID}-update"></webui-button>
                     <webui-button theme="danger" start-icon="circle|ban" title="Delete {TEMPLATE_NAME}" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-newsletter-{_ROWID}-delete"></webui-button>
