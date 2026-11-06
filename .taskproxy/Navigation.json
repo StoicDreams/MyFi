@@ -1,8 +1,14 @@
 [
   {
-    "name": "Git",
-    "icon": "github",
-    "url": "/c46b3129-0d3c-44c0-921d-6838c01fa99a",
+    "name": "LocalHost",
+    "icon": "emoji-desktop_computer",
+    "url": "/2d5fe9c1-8f0b-4c8b-818d-b30af236a7a0",
+    "children": null
+  },
+  {
+    "name": "Tests",
+    "icon": "emoji-balance_scale",
+    "url": "/17cbe7ab-3189-4d28-a116-7f0bfe24dd64",
     "children": null
   }
 ]
