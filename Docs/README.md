@@ -1,6 +1,6 @@
 # My Fidelity
 
-[Version: 0.1.12](https://github.com/StoicDreams/MyFi)
+[Version: 0.1.13](https://github.com/StoicDreams/MyFi)
 
 [WebUI](https://github.com/StoicDreams/WebUI)
 

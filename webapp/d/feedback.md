@@ -10,8 +10,16 @@
         </webui-page-segment>
         <webui-report label="My Feedback" api="/user/feedback" sort-column="created" sort-order="asc" bordered theme="info" data-subscribe="refresh-feedback:loadData|filter-feedback:loadData" append-columns=":Action:" filters="filter-feedback" required-filters="companyId;domainId" sortable="created">
         <template slot="column" name="action">
-            <webui-button theme="info" start-icon="eye|shade:tri|fill" title="View Feedback" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-feedback-{_ROWID}-delete"></webui-button>
-            <webui-dialog-action title="Feedback" confirm="Delete Feedback" api="delete|/user/feedback" data-subscribe="page-feedback-{_ROWID}-delete" data-success="refresh-feedback">
+            <webui-button theme="info" start-icon="eye|shade:tri|fill" title="View Feedback" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-feedback-{_ROWID}-view"></webui-button>
+            <webui-button theme="danger" start-icon="circle|ban" title="Delete Feedback" data-value="{TEMPLATE_ROWDATA}" data-trigger="page-feedback-{_ROWID}-delete"></webui-button>
+            <webui-dialog-action title="Feedback" confirm="Close" data-subscribe="page-feedback-{_ROWID}-view">
+                <template>
+                    <webui-page-segment>
+                        <webui-code>{TEMPLATE_FULLMESSAGE}</webui-code>
+                    </webui-page-segment>
+                </template>
+            </webui-dialog-action>
+            <webui-dialog-action title="Delete Feedback" confirm="Delete Feedback" api="delete|/user/feedback" data-subscribe="page-feedback-{_ROWID}-delete" data-success="refresh-feedback">
                 <template>
                     <webui-page-segment>
                         <webui-code>{TEMPLATE_FULLMESSAGE}</webui-code>
