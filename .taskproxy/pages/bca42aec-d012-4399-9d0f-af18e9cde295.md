@@ -4,11 +4,24 @@
 
 <webui-page-segment>
 
-Build Sitemap and Increment Patch Version
+Minify, Build Sitemap, and Increment Patch Version
 
 ```pwsh
+./PowerShell/Minify.ps1
 ./PowerShell/BuildSiteMap.ps1
 ./PowerShell/IncrementVersion.ps1
+```
+
+Minify
+
+```pwsh
+./PowerShell/Minify.ps1
+```
+
+Screenshots
+
+```pwsh
+./PowerShell/screenshots.ps1
 ```
 
 Build Sitemap
