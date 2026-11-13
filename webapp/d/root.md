@@ -2,7 +2,7 @@
 
 <webui-page-segment elevation="10">
 
-My Fidelity is a provider of various BAAS solutions for software developers, brought to you by [Stoic Dreams](https://www.stoicdreams.com).
+My Fidelity is a provider of various BAAS (Business as a Service) solutions for software developers, brought to you by [Stoic Dreams](https://www.stoicdreams.com).
 
 Our initial batch of BAAS services are currently in development and will be launching soon.
 
