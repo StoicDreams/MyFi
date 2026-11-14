@@ -56,14 +56,14 @@ test('lists newsletters for the chosen domain', async ({ page }) => {
 test('the code dialog shows the signup form tag with the key', async ({ page }) => {
     await openNewsletters(page);
     await page.locator('webui-report[api="/user/newsletters"] webui-button[title="Signup Form Code"]').click();
-    const dialog = page.locator('webui-dialogs dialog');
+    const dialog = page.locator('webui-dialogs');
     await expect(dialog).toContainText(`<webui-newsletter key="${NEWSLETTER.key}"></webui-newsletter>`);
 });
 
 test('editing a newsletter fills the form from the row as text and saves it', async ({ page }) => {
     const sent = await openNewsletters(page);
     await page.locator('webui-report[api="/user/newsletters"] webui-button[title="Edit Weekly Notes"]').click();
-    const dialog = page.locator('webui-dialogs dialog');
+    const dialog = page.locator('webui-dialogs');
     await expect(dialog.getByLabel('Newsletter Name')).toHaveValue('Weekly Notes');
     await expect(dialog.getByLabel('Description')).toHaveValue(NEWSLETTER.description);
     await dialog.getByLabel('Newsletter Name').fill('Weekly Notes 2');
@@ -77,7 +77,7 @@ test('editing a newsletter fills the form from the row as text and saves it', as
 test('adding a newsletter sends the domain', async ({ page }) => {
     const sent = await openNewsletters(page);
     await page.getByRole('button', { name: 'Add Newsletter' }).click();
-    const dialog = page.locator('webui-dialogs dialog');
+    const dialog = page.locator('webui-dialogs');
     await dialog.getByLabel('Newsletter Name').fill('Release News');
     await dialog.locator('#dlg-confirm').click();
     await expect.poll(() => sent.find(s => s.path === '/user/newsletter/create')).toBeTruthy();
@@ -90,7 +90,7 @@ test('editing a campaign keeps its HTML body exactly and sends every field', asy
     const campaigns = page.locator('webui-report[api="/user/newsletter/campaigns"]');
     await expect(campaigns).toContainText('Welcome aboard');
     await campaigns.locator('webui-button[title="Edit Welcome"]').click();
-    const dialog = page.locator('webui-dialogs dialog');
+    const dialog = page.locator('webui-dialogs');
     await expect(dialog.getByLabel('Email Body (HTML)')).toHaveValue(CAMPAIGN.body_html);
     await expect(dialog.getByLabel('Email Subject')).toHaveValue('Welcome aboard');
     await expect(dialog.locator('select[name="campaignType"]')).toHaveValue('delayed');
