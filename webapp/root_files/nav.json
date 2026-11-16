@@ -23,6 +23,12 @@
         "role": 1
     },
     {
+        "name": "Apps",
+        "icon": "desktop",
+        "url": "/apps",
+        "role": 1
+    },
+    {
         "name": "Url Shortener",
         "icon": "link",
         "url": "/shorturl",

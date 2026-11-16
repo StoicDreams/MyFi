@@ -18,6 +18,9 @@ const domains = [
 const pendingDomains = [
     { id: 13, name: 'Acme Docs', domain: 'docs.acmestudio.example', key: '7f3c9a1e-5b2d-4c8e-9a6f-2d1b0c4e8f37', created: when(2, '01:10 PM'), updated: when(2, '01:10 PM') },
 ];
+const apps = [
+    { id: 61, name: 'Acme Desktop', key: '5e2b8d4f-7a1c-4f3e-9b6d-1c0a8e7f2d59', sessions: 4, created: when(2, '09:50 AM'), updated: when(2, '09:50 AM') },
+];
 const feedback = [
     ['Jordan', 'The checkout page took a long time to load on my phone this morning.', '08:12 AM'],
     ['Guest', 'Love the new dark theme. Could the font be a little larger?', '10:47 AM'],
@@ -39,6 +42,7 @@ const answers = {
     '/user/companies': () => report('Name|name;Created:|created;Last Updated:|updated', companies),
     '/user/domains': () => report('Name|name;Domain|domain;Created:|created;Last Updated:|updated', domains),
     '/user/domains/pending': () => report('Name|name;Domain|domain;Created:|created;Last Updated:|updated', pendingDomains),
+    '/user/apps': () => report('Name|name;App Key|key;Signed In|sessions;Created:|created;Last Updated:|updated', apps),
     '/user/feedback': () => report('User|user;Message|message;Created:|created;Last Updated:|updated', feedback),
     '/user/feedback/counts': () => report('Company|company;Domain|domain;Count:|count;Latest:|latest', feedbackCounts),
     '/user/newsletters': () => report('Name|name;Key|key;Status|status;Subscribers:|subscribers;Pending:|pending;Created:|created', newsletters),
@@ -58,6 +62,7 @@ const answers = {
 const loaded = {
     '/companies': 'Northwind Apps',
     '/domains': 'docs.acmestudio.example',
+    '/apps': 'Acme Desktop',
     '/feedback': 'Jordan',
     '/newsletters': 'Studio Notes',
 };
