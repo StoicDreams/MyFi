@@ -8,8 +8,8 @@ const when = (day, time) => `November ${String(day).padStart(2, '0')}, 2026 ${ti
 const report = (columns, items) => ({ page: 1, pageCount: 1, perPage: 10, total: items.length, columns, items });
 
 const companies = [
-    { id: 1, name: 'Acme Studio', created: when(2, '09:15 AM'), updated: when(2, '09:15 AM') },
-    { id: 2, name: 'Northwind Apps', created: when(1, '04:40 PM'), updated: when(2, '11:05 AM') },
+    { id: 1, name: 'Acme Studio', address: '123 Main Street\nSpringfield, IL 62701', created: when(2, '09:15 AM'), updated: when(2, '09:15 AM') },
+    { id: 2, name: 'Northwind Apps', address: '', created: when(1, '04:40 PM'), updated: when(2, '11:05 AM') },
 ];
 const domains = [
     { id: 11, name: 'Acme Studio', domain: 'www.acmestudio.example', created: when(2, '09:20 AM'), updated: when(2, '09:20 AM') },
@@ -31,15 +31,15 @@ const feedbackCounts = [
     { company: 'Acme Studio', domain: 'Acme Shop', count: 1, latest: when(1, '03:05 PM') },
 ];
 const newsletters = [
-    { id: 31, name: 'Studio Notes', key: '3b8e4f2a-1c6d-4e9b-8a7f-5d2c1b0e9a43', status: 'Active', subscribers: 248, pending: 6, created: when(2, '09:40 AM'), description: 'What we shipped this month.' },
-    { id: 32, name: 'Release News', key: '9d1a7c3e-2f4b-4a8d-b6e5-0c3f2a1d8b76', status: 'Inactive', subscribers: 0, pending: 0, created: when(2, '02:15 PM'), description: '' },
+    { id: 31, name: 'Studio Notes', key: '3b8e4f2a-1c6d-4e9b-8a7f-5d2c1b0e9a43', status: 'Active', paused: false, subscribers: 248, pending: 6, created: when(2, '09:40 AM'), description: 'What we shipped this month.' },
+    { id: 32, name: 'Release News', key: '9d1a7c3e-2f4b-4a8d-b6e5-0c3f2a1d8b76', status: 'Paused', paused: true, subscribers: 0, pending: 0, created: when(2, '02:15 PM'), description: '' },
 ];
 
 const answers = {
     '/user/companies/options': () => companies.map(c => ({ value: c.id, display: c.name })),
     '/user/domains/options': () => domains.map(d => ({ value: d.id, display: d.name })),
     '/user/newsletters/options': () => newsletters.map(n => ({ value: n.id, display: n.name })),
-    '/user/companies': () => report('Name|name;Created:|created;Last Updated:|updated', companies),
+    '/user/companies': () => report('Name|name;Postal Address|address;Created:|created;Last Updated:|updated', companies),
     '/user/domains': () => report('Name|name;Domain|domain;Created:|created;Last Updated:|updated', domains),
     '/user/domains/pending': () => report('Name|name;Domain|domain;Created:|created;Last Updated:|updated', pendingDomains),
     '/user/apps': () => report('Name|name;App Key|key;Signed In|sessions;Created:|created;Last Updated:|updated', apps),

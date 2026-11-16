@@ -7,11 +7,11 @@ const CAMPAIGN = {
 };
 const NEWSLETTER = {
     id: 3, name: 'Weekly Notes', key: '00000000-0000-4000-8000-000000000003', status: 'Active', subscribers: 2, pending: 1, created: 'Today',
-    description: 'Notes <b>every</b> week.',
+    description: 'Notes <b>every</b> week.', paused: false,
 };
 const report = (columns, items) => ({ page: 1, pageCount: 1, perPage: 10, total: items.length, columns, items });
 
-async function mockApi(page) {
+async function mockApi(page, { paused = false } = {}) {
     const sent = [];
     await page.route('https://api.myfi.ws/**', async route => {
         const request = route.request();
@@ -28,7 +28,17 @@ async function mockApi(page) {
             case '/user/companies/options': return json([{ value: 1, display: 'Stoic Dreams' }]);
             case '/user/domains/options': return json([{ value: 2, display: 'Example' }]);
             case '/user/newsletters/options': return json([{ value: 3, display: 'Weekly Notes' }]);
-            case '/user/newsletters': return json(report('Name|name;Key|key;Status|status', [NEWSLETTER]));
+            case '/user/newsletters': return json(report('Name|name;Key|key;Status|status', [{ ...NEWSLETTER, paused, status: paused ? 'Paused' : 'Active' }]));
+            case '/user/newsletter/campaign/preview': {
+                // As the database adds the header and footer around the writer's content.
+                const body = JSON.parse(request.postData() || '{}');
+                return json({
+                    subject: body.subject,
+                    html: `<p>Weekly Notes from Stoic Dreams</p>${body.bodyHtml}<p>Unsubscribe from Weekly Notes</p>`,
+                    text: `Weekly Notes from Stoic Dreams\n\n${body.bodyText}\n\nUnsubscribe from Weekly Notes`,
+                    notices: body.newsletterId === '3' ? [] : ['Wrong newsletter'],
+                });
+            }
             case '/user/newsletter/campaigns': return json(report('Name|name;Subject|subject;Type|type', [CAMPAIGN]));
             case '/user/newsletter/subscribers': return json(report('Email|email;Status|status', [{ id: 1, email: 'j***@e***.com', status: 'Confirmed' }]));
             case '/user/newsletters/analytics': return json(report('Newsletter|name;Subscribers:|confirmed', [{ id: 3, name: 'Weekly Notes', confirmed: 2 }]));
@@ -101,6 +111,60 @@ test('editing a campaign keeps its HTML body exactly and sends every field', asy
         campaignId: '7', name: 'Welcome', subject: 'Welcome aboard', bodyHtml: CAMPAIGN.body_html, bodyText: 'Hello friend',
         campaignType: 'delayed', sendOffsetMinutes: '15',
     });
+});
+
+test('the campaign editor previews the email with the newsletter header and footer, as HTML or text', async ({ page }) => {
+    const sent = await openNewsletters(page);
+    await page.locator('webui-tabs').getByRole('button', { name: 'Campaigns', exact: true }).click();
+    await expect(page.locator('webui-report[api="/user/newsletter/campaigns"]')).toContainText('Welcome aboard');
+    await page.getByRole('button', { name: 'Add Campaign' }).click();
+    const dialog = page.locator('webui-dialogs');
+    await dialog.getByLabel('Email Subject').fill('Big news');
+    await dialog.getByLabel('Email Body (HTML)').fill('<h2>Launch day</h2><script>alert(1)</script>');
+    await dialog.getByLabel('Email Body (plain text)').fill('Launch day');
+    const preview = dialog.locator('webui-email-preview');
+    await expect(preview.locator('.subject-value')).toHaveText('Big news');
+    const frame = preview.locator('iframe').contentFrame().locator('body');
+    await expect(frame).toContainText('Weekly Notes from Stoic Dreams');
+    await expect(frame.locator('h2')).toHaveText('Launch day');
+    await expect(frame).toContainText('Unsubscribe from Weekly Notes');
+    await expect(frame.locator('script')).toHaveCount(0);
+    await expect(preview.locator('.notices')).toContainText('<script>');
+    await preview.getByRole('button', { name: /Show the Text version/ }).click();
+    await expect(preview.locator('.text-view')).toContainText('Launch day');
+    const request = sent.filter(s => s.path === '/user/newsletter/campaign/preview').at(-1);
+    expect(request.body).toMatchObject({ newsletterId: '3', subject: 'Big news', bodyText: 'Launch day' });
+});
+
+test('editing a campaign previews its saved email', async ({ page }) => {
+    await openNewsletters(page);
+    await page.locator('webui-tabs').getByRole('button', { name: 'Campaigns', exact: true }).click();
+    const campaigns = page.locator('webui-report[api="/user/newsletter/campaigns"]');
+    await expect(campaigns).toContainText('Welcome aboard');
+    await campaigns.locator('webui-button[title="Edit Welcome"]').click();
+    const preview = page.locator('webui-dialogs webui-email-preview');
+    await expect(preview.locator('.subject-value')).toHaveText('Welcome aboard');
+    await expect(preview.locator('iframe').contentFrame().locator('body')).toContainText('Hello');
+});
+
+test('an active newsletter can be paused', async ({ page }) => {
+    const sent = await openNewsletters(page);
+    const row = page.locator('webui-report[api="/user/newsletters"]');
+    await expect(row.locator('webui-button[title="Resume Weekly Notes"]')).toHaveCount(0);
+    await row.locator('webui-button[title="Pause Weekly Notes"]').click();
+    await page.locator('webui-dialogs #dlg-confirm').click();
+    await expect.poll(() => sent.find(s => s.path === '/user/newsletter/pause')?.body).toEqual({ newsletterId: '3' });
+});
+
+test('a paused newsletter can be resumed', async ({ page }) => {
+    const sent = await mockApi(page, { paused: true });
+    await openPage(page, '/newsletters');
+    const row = page.locator('webui-report[api="/user/newsletters"]');
+    await expect(row).toContainText('Paused');
+    await expect(row.locator('webui-button[title="Pause Weekly Notes"]')).toHaveCount(0);
+    await row.locator('webui-button[title="Resume Weekly Notes"]').click();
+    await page.locator('webui-dialogs #dlg-confirm').click();
+    await expect.poll(() => sent.find(s => s.path === '/user/newsletter/resume')?.body).toEqual({ newsletterId: '3' });
 });
 
 test('subscribers and analytics load for the chosen newsletter and domain', async ({ page }) => {

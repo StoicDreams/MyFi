@@ -2,6 +2,9 @@
 
 <webui-restrict-to-role role="1">
     <template slot="valid">
+        <webui-page-segment>
+            Users will show statistics about the people who sign in to your websites and apps, without their personal information.
+        </webui-page-segment>
         <webui-quote theme="warning">
             Coming Soon
         </webui-quote>

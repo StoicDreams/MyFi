@@ -2,6 +2,31 @@
 
 <webui-restrict-to-role role="1">
     <template slot="valid">
+        <webui-page-segment>
+            Feedback is what visitors send from the feedback form on your websites. Pick a company and domain to read the messages sent from that site, and see below how much feedback each of your domains has received.
+        </webui-page-segment>
+        <webui-page-help heading="Feedback Guide" storage-key="myfi-feedback-help">
+            <webui-tabs theme="info">
+                <webui-button slot="tabs">Reading Feedback</webui-button>
+                <webui-content slot="content" nodetach>
+
+1. **Pick the company and domain** whose feedback you want to read.
+2. **Open a message** with the view button. The table shows the start of each one.
+3. **Delete it** once you've dealt with it, to keep the list short.
+
+**Feedback Counts** lists every domain you own with how many messages it has and when the latest arrived, so you can see where new feedback is waiting.
+
+                </webui-content>
+                <webui-button slot="tabs">Collecting Feedback</webui-button>
+                <webui-content slot="content" nodetach>
+
+Stoic Dreams sites have a feedback button built in. Messages sent from any of your verified domains arrive here, grouped by domain.
+
+Visitors don't need an account to send feedback. When they are signed in, their display name is shown in the User column.
+
+                </webui-content>
+            </webui-tabs>
+        </webui-page-help>
         <webui-page-segment elevation="10">
             <webui-flex gap="3" class="container" wrap-at="600">
                 <webui-dropdown label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id|filter-feedback.companyId" api="user/companies/options"></webui-dropdown>

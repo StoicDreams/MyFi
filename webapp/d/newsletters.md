@@ -2,6 +2,60 @@
 
 <webui-restrict-to-role role="1">
     <template slot="valid">
+        <webui-page-segment>
+            Newsletters let visitors to your websites sign up for email from you, and let you write the emails they receive. Add a newsletter to one of your domains, put its signup form on your site, then write campaigns: emails sent once to everyone, or a series sent to each subscriber after they sign up. My Fidelity handles the rest, from confirming each signup to the unsubscribe link and legal details in every email, so you only write your own content.
+        </webui-page-segment>
+        <webui-page-help heading="Newsletters Guide" storage-key="myfi-newsletters-help">
+            <webui-tabs theme="info">
+                <webui-button slot="tabs">Getting Started</webui-button>
+                <webui-content slot="content" nodetach>
+
+1. **Choose a company and domain** at the top of the page. A newsletter belongs to one of your verified domains, from the Domains page.
+2. **Add a newsletter** with a name and a description. Visitors see both above the signup form.
+3. **Check its status** in the Newsletters tab. It takes signups once it is Active.
+4. **Put the signup form on your site** with the code button on its row. It only works on that domain.
+5. **Write campaigns** in the Campaigns tab, and watch subscribers arrive in the Subscribers tab.
+
+                </webui-content>
+                <webui-button slot="tabs">Status and Plans</webui-button>
+                <webui-content slot="content" nodetach>
+
+Newsletters are a paid service. Each active newsletter uses one slot in the newsletter plan of the company's owner, and every plan includes unlimited campaigns and subscribers.
+
+- **Active:** takes signups and sends campaigns.
+- **Needs a newsletter plan:** there is no free slot in the plan. Its signup form is hidden until there is one.
+- **Needs a company address:** it takes signups, but campaigns wait until the company has a postal address, which the law requires in every newsletter email. Add one on the Companies page.
+- **Paused:** you paused it. Its signup form is hidden and its campaigns wait, but its subscribers and campaigns are kept.
+
+If a plan has fewer slots than newsletters, such as after a downgrade, the oldest newsletters stay active. Pause one to free its slot for another, and resume it when a slot is free.
+
+                </webui-content>
+                <webui-button slot="tabs">Campaigns</webui-button>
+                <webui-content slot="content" nodetach>
+
+A campaign is one email. Write a subject and a body, and the preview beside them shows the email as subscribers will receive it.
+
+- **Draft** campaigns are never sent, so you can work on them over time.
+- **Immediate** campaigns go once to everyone subscribed when they are queued, a few minutes after you save. They can't be changed after that.
+- **Delayed** campaigns go to each subscriber a set number of minutes after they confirm, such as 0 for a welcome email or 10080 for one a week later. Several delayed campaigns make a series.
+
+You only write your own content. Every email gets a header naming the newsletter and your company, and a footer saying why the subscriber is getting it, with an unsubscribe link and your company's postal address.
+
+                </webui-content>
+                <webui-button slot="tabs">Subscribers</webui-button>
+                <webui-content slot="content" nodetach>
+
+Everyone who signs up gets an email asking them to confirm, so nobody is subscribed by someone else. Only confirmed subscribers receive campaigns.
+
+- **Pending:** signed up, but hasn't confirmed. Unconfirmed signups are removed after 7 days.
+- **Confirmed:** receives your campaigns.
+- **Unsubscribed:** used the link in an email, and receives nothing more.
+
+Email addresses are partly hidden, because Stoic Dreams keeps subscribers' personal data private.
+
+                </webui-content>
+            </webui-tabs>
+        </webui-page-help>
         <webui-page-segment elevation="10">
             <webui-flex gap="3" class="container" wrap-at="600">
                 <webui-dropdown label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id|filter-newsletter.companyId" api="user/companies/options"></webui-dropdown>
@@ -13,13 +67,13 @@
             <webui-dialog-action title="Add Newsletter" confirm="Add Newsletter" api="post|/user/newsletter/create" data-subscribe="page-newsletter-create" data-success="refresh-newsletters">
                 <template>
                     <webui-page-segment>
-                        Create a newsletter for this domain. Visitors see its name and description above the signup form, unless your site provides its own text.
+                        Create a newsletter for this domain. Visitors see its name and description above the signup form, unless your site provides its own text, so say what they will receive and how often.
                     </webui-page-segment>
                     <input type="hidden" name="domainId" data-subscribe="session-domain-id" />
                     <webui-input-text label="Newsletter Name" name="name" placeholder="Your Newsletter Name" maxlength="100"></webui-input-text>
                     <webui-input-message label="Description" name="description" placeholder="Tell visitors what they will receive and how often" maxlength="2000"></webui-input-message>
                     <webui-quote theme="info">
-                        Each newsletter is its own subscription. A new newsletter accepts signups once its subscription is active.
+                        Each active newsletter uses one slot in your newsletter plan. A newsletter starts taking signups once it is Active, which the Newsletters tab shows.
                     </webui-quote>
                 </template>
             </webui-dialog-action>
@@ -27,15 +81,26 @@
         <webui-tabs theme="secondary" index="0" transition-timing="200" data-subscribe="session-newsletters-tab-index:setTab">
             <webui-button align="left" slot="tabs">Newsletters</webui-button>
             <webui-content slot="content" theme="default">
+                <webui-page-segment>
+                    The newsletters on this domain. **Status** shows whether each one is taking signups and sending: open the help for what each status means. Use the buttons on a row to get its signup form code, edit it, pause or resume it, or delete it.
+                </webui-page-segment>
                 <webui-report label="Newsletters" api="/user/newsletters" filters="filter-newsletter" required-filters="companyId;domainId" sort-column="name" bordered theme="info" data-subscribe="filter-newsletter:loadData|refresh-newsletters:loadData" append-columns=":Actions:" sortable="name;status;subscribers;pending;created">
                 <template slot="column" name="actions">
                     <webui-button theme="tertiary" start-icon="code" title="Signup Form Code" data-trigger="page-newsletter-{_ROWID}-code"></webui-button>
                     <webui-button theme="info" start-icon="pencil|shade:tri" title="Edit {TEMPLATE_NAME}" data-trigger="page-newsletter-{_ROWID}-update"></webui-button>
+                    <webui-condition data-subscribe="page-tr-{_ROWID}.paused">
+                        <template slot="valid">
+                            <webui-button theme="success" start-icon="play" title="Resume {TEMPLATE_NAME}" data-trigger="page-newsletter-{_ROWID}-resume" data-value="1"></webui-button>
+                        </template>
+                        <template slot="invalid">
+                            <webui-button theme="warning" start-icon="pause" title="Pause {TEMPLATE_NAME}" data-trigger="page-newsletter-{_ROWID}-pause" data-value="1"></webui-button>
+                        </template>
+                    </webui-condition>
                     <webui-button theme="danger" start-icon="circle|ban" title="Delete {TEMPLATE_NAME}" data-trigger="page-newsletter-{_ROWID}-delete"></webui-button>
                     <webui-dialog-action title="Signup Form for {TEMPLATE_NAME}" confirm="Close" data-subscribe="page-newsletter-{_ROWID}-code">
                         <template>
                             <webui-page-segment>
-                                Add this to any page of the newsletter's domain to show its signup form. It only works on that domain.
+                                Add this to any page of the newsletter's domain to show its signup form. It only works on that domain, and it hides itself while the newsletter isn't taking signups.
                             </webui-page-segment>
                             <webui-code language="html" label="Signup form">&lt;webui-newsletter key="{TEMPLATE_KEY}"&gt;&lt;/webui-newsletter&gt;</webui-code>
                         </template>
@@ -47,11 +112,27 @@
                             <webui-input-message label="Description" name="description" maxlength="2000" data-subscribe="page-tr-{_ROWID}.description"></webui-input-message>
                         </template>
                     </webui-dialog-action>
+                    <webui-dialog-action title="Pause {TEMPLATE_NAME}" confirm="Pause Newsletter" api="post|/user/newsletter/pause" data-subscribe="page-newsletter-{_ROWID}-pause" data-success="refresh-newsletters">
+                        <template>
+                            <input type="hidden" name="newsletterId" value="{TEMPLATE_ID}" />
+                            <webui-page-segment>
+                                Pausing frees this newsletter's slot in your plan for another newsletter. While it is paused, its signup form is hidden and its campaigns wait. Its subscribers and campaigns are kept, and you can resume it whenever your plan has a free slot.
+                            </webui-page-segment>
+                        </template>
+                    </webui-dialog-action>
+                    <webui-dialog-action title="Resume {TEMPLATE_NAME}" confirm="Resume Newsletter" api="post|/user/newsletter/resume" data-subscribe="page-newsletter-{_ROWID}-resume" data-success="refresh-newsletters">
+                        <template>
+                            <input type="hidden" name="newsletterId" value="{TEMPLATE_ID}" />
+                            <webui-page-segment>
+                                Resuming uses a free slot in your newsletter plan. If every slot is in use, pause another newsletter first.
+                            </webui-page-segment>
+                        </template>
+                    </webui-dialog-action>
                     <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete Newsletter" api="delete|/user/newsletter" data-subscribe="page-newsletter-{_ROWID}-delete" data-success="refresh-newsletters">
                         <template>
                             <input type="hidden" name="newsletterId" value="{TEMPLATE_ID}" />
                             <webui-quote theme="danger">
-                                This deletes {TEMPLATE_NAME} with all of its campaigns and subscribers. It can't be undone, and its signup forms stop working.
+                                This deletes {TEMPLATE_NAME} with all of its campaigns and subscribers. It can't be undone, and its signup forms stop working. To stop it for now and keep everything, pause it instead.
                             </webui-quote>
                         </template>
                     </webui-dialog-action>
@@ -61,20 +142,31 @@
             <webui-button align="left" slot="tabs">Campaigns</webui-button>
             <webui-content slot="content" theme="default">
                 <webui-page-segment>
+                    Campaigns are the emails a newsletter sends. Pick a newsletter, then add a campaign or edit one. The editor shows a preview of each email as subscribers will receive it.
+                </webui-page-segment>
+                <webui-page-segment>
                     <webui-flex gap="3" wrap-at="600">
                         <webui-dropdown label="Newsletter" data-subscribe="session-newsletter-id|filter-newsletter.domainId:loadData|refresh-newsletters:loadData" data-trigger="session-newsletter-id|filter-newsletter-campaigns.newsletterId|filter-newsletter-subscribers.newsletterId" data-api="filter-newsletter" api="user/newsletters/options" data-fields="domainId"></webui-dropdown>
                         <webui-flex align="center" justify="right">
-                            <webui-button data-trigger="page-news-campaign-create" data-value="1">Add Campaign</webui-button>
+                            <webui-button data-trigger="page-news-campaign-create|page-news-draft-new" data-value="1">Add Campaign</webui-button>
                         </webui-flex>
                     </webui-flex>
                 </webui-page-segment>
                 <webui-dialog-action title="Add Campaign" confirm="Add Campaign" api="post|/user/newsletter/campaign/create" data-subscribe="page-news-campaign-create" data-success="refresh-news-campaigns">
                     <template>
                         <input type="hidden" name="newsletterId" data-subscribe="session-newsletter-id" />
-                        <webui-input-text label="Campaign Name" name="name" placeholder="Only shown here" maxlength="100"></webui-input-text>
-                        <webui-input-text label="Email Subject" name="subject" maxlength="200"></webui-input-text>
-                        <webui-input-message label="Email Body (HTML)" name="bodyHtml" maxlength="200000"></webui-input-message>
-                        <webui-input-message label="Email Body (plain text)" name="bodyText" placeholder="Shown by mail apps that don't display HTML" maxlength="200000"></webui-input-message>
+                        <webui-page-segment>
+                            Write only your own content. My Fidelity adds a header with the newsletter's name and your company, and a footer with why the subscriber is getting it, an unsubscribe link, and your company's postal address. The preview shows the whole email, and **Show Text** switches to the plain text version.
+                        </webui-page-segment>
+                        <webui-input-text label="Campaign Name" name="name" placeholder="Only shown here, to tell your campaigns apart" maxlength="100"></webui-input-text>
+                        <webui-side-by-side>
+                            <webui-flex column gap="2">
+                                <webui-input-text label="Email Subject" name="subject" maxlength="200" data-trigger="page-news-draft-new.subject"></webui-input-text>
+                                <webui-input-message label="Email Body (HTML)" name="bodyHtml" maxlength="200000" data-trigger="page-news-draft-new.bodyHtml"></webui-input-message>
+                                <webui-input-message label="Email Body (plain text)" name="bodyText" placeholder="Shown by mail apps that don't display HTML. Leave empty to make it from the HTML" maxlength="200000" data-trigger="page-news-draft-new.bodyText"></webui-input-message>
+                            </webui-flex>
+                            <webui-email-preview api="post|/user/newsletter/campaign/preview" data-api="filter-newsletter-campaigns" data-subscribe="page-news-draft-new"></webui-email-preview>
+                        </webui-side-by-side>
                         <label>When to send <select name="campaignType"><option value="draft" selected>Draft: don't send</option><option value="immediate">Immediate: once, to every confirmed subscriber</option><option value="delayed">Delayed: to each subscriber, after they confirm</option></select></label>
                         <webui-input-text label="Delay in minutes (Delayed only)" name="sendOffsetMinutes" type="number" min="0" max="525600" value="0"></webui-input-text>
                         <webui-quote theme="info">
@@ -87,15 +179,20 @@
                 </webui-dialog-action>
                 <webui-report label="Campaigns" api="/user/newsletter/campaigns" filters="filter-newsletter-campaigns" required-filters="newsletterId" sort-column="updated" sort-order="desc" bordered theme="info" data-subscribe="filter-newsletter-campaigns:loadData|refresh-news-campaigns:loadData" append-columns=":Actions:" sortable="name;subject;type;queued;sent;updated">
                 <template slot="column" name="actions">
-                    <webui-button theme="info" start-icon="pencil|shade:tri" title="Edit {TEMPLATE_NAME}" data-trigger="page-news-campaign-{_ROWID}-update"></webui-button>
+                    <webui-button theme="info" start-icon="pencil|shade:tri" title="Edit {TEMPLATE_NAME}" data-trigger="page-news-campaign-{_ROWID}-update|page-news-draft-{_ROWID}" data-value="1"></webui-button>
                     <webui-button theme="danger" start-icon="circle|ban" title="Delete {TEMPLATE_NAME}" data-trigger="page-news-campaign-{_ROWID}-delete"></webui-button>
                     <webui-dialog-action title="Edit {TEMPLATE_NAME}" confirm="Save Campaign" api="patch|/user/newsletter/campaign" data-subscribe="page-news-campaign-{_ROWID}-update" data-success="refresh-news-campaigns">
                         <template>
                             <input type="hidden" name="campaignId" value="{TEMPLATE_ID}" />
                             <webui-input-text label="Campaign Name" name="name" maxlength="100" data-subscribe="page-tr-{_ROWID}.name"></webui-input-text>
-                            <webui-input-text label="Email Subject" name="subject" maxlength="200" data-subscribe="page-tr-{_ROWID}.subject"></webui-input-text>
-                            <webui-input-message label="Email Body (HTML)" name="bodyHtml" maxlength="200000" data-subscribe="page-tr-{_ROWID}.body_html"></webui-input-message>
-                            <webui-input-message label="Email Body (plain text)" name="bodyText" maxlength="200000" data-subscribe="page-tr-{_ROWID}.body_text"></webui-input-message>
+                            <webui-side-by-side>
+                                <webui-flex column gap="2">
+                                    <webui-input-text label="Email Subject" name="subject" maxlength="200" data-subscribe="page-tr-{_ROWID}.subject" data-trigger="page-news-draft-{_ROWID}.subject"></webui-input-text>
+                                    <webui-input-message label="Email Body (HTML)" name="bodyHtml" maxlength="200000" data-subscribe="page-tr-{_ROWID}.body_html" data-trigger="page-news-draft-{_ROWID}.bodyHtml"></webui-input-message>
+                                    <webui-input-message label="Email Body (plain text)" name="bodyText" placeholder="Leave empty to make it from the HTML" maxlength="200000" data-subscribe="page-tr-{_ROWID}.body_text" data-trigger="page-news-draft-{_ROWID}.bodyText"></webui-input-message>
+                                </webui-flex>
+                                <webui-email-preview api="post|/user/newsletter/campaign/preview" data-api="filter-newsletter-campaigns" data-subscribe="page-tr-{_ROWID}|page-news-draft-{_ROWID}"></webui-email-preview>
+                            </webui-side-by-side>
                             <label>When to send <select name="campaignType" data-subscribe="page-tr-{_ROWID}.campaign_type:value"><option value="draft">Draft: don't send</option><option value="immediate">Immediate: once, to every confirmed subscriber</option><option value="delayed">Delayed: to each subscriber, after they confirm</option></select></label>
                             <webui-input-text label="Delay in minutes (Delayed only)" name="sendOffsetMinutes" type="number" min="0" max="525600" data-subscribe="page-tr-{_ROWID}.send_offset_minutes"></webui-input-text>
                         </template>
@@ -114,6 +211,9 @@
             <webui-button align="left" slot="tabs">Subscribers</webui-button>
             <webui-content slot="content" theme="default">
                 <webui-page-segment>
+                    The people signed up to a newsletter. **Pending** subscribers haven't confirmed their email yet, and are removed after 7 days if they don't. **Confirmed** subscribers receive your campaigns. **Unsubscribed** ones used the link in an email and receive nothing more.
+                </webui-page-segment>
+                <webui-page-segment>
                     <webui-dropdown label="Newsletter" data-subscribe="session-newsletter-id|filter-newsletter.domainId:loadData|refresh-newsletters:loadData" data-trigger="session-newsletter-id|filter-newsletter-campaigns.newsletterId|filter-newsletter-subscribers.newsletterId" data-api="filter-newsletter" api="user/newsletters/options" data-fields="domainId"></webui-dropdown>
                 </webui-page-segment>
                 <webui-quote theme="info">
@@ -124,6 +224,9 @@
             </webui-content>
             <webui-button align="left" slot="tabs">Analytics</webui-button>
             <webui-content slot="content" theme="default">
+                <webui-page-segment>
+                    How each newsletter on this domain is growing. **New (30 days)** counts confirmed signups in the last 30 days. The email columns count campaign emails waiting in the queue, sent, and failed.
+                </webui-page-segment>
                 <webui-report label="Newsletter Analytics" api="/user/newsletters/analytics" filters="filter-newsletter" required-filters="companyId;domainId" sort-column="name" bordered theme="info" data-subscribe="filter-newsletter:loadData|refresh-newsletters:loadData|refresh-news-campaigns:loadData" sortable="name;confirmed;pending;unsubscribed;recent;queued;sent;failed">
                 </webui-report>
             </webui-content>

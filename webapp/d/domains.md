@@ -2,6 +2,40 @@
 
 <webui-restrict-to-role role="1">
     <template slot="valid">
+        <webui-page-segment>
+            A domain is one of your websites, such as www.example.com. Adding it to a company and verifying it proves the site is yours, so services such as newsletters and feedback can work on it. Pick a company, add a domain, and follow its verification instructions.
+        </webui-page-segment>
+        <webui-page-help heading="Domains Guide" storage-key="myfi-domains-help">
+            <webui-tabs theme="info">
+                <webui-button slot="tabs">Getting Started</webui-button>
+                <webui-content slot="content" nodetach>
+
+1. **Pick the company** the website belongs to.
+2. **Add the domain** with its name and its exact address, such as www.example.com.
+3. **Verify it** from the Pending Domains tab: the instructions button shows a DNS TXT record to add where you manage your domain's DNS.
+4. **Wait for the check.** My Fidelity looks for the record about once an hour, and moves the domain to My Domains when it finds it.
+
+                </webui-content>
+                <webui-button slot="tabs">Verifying</webui-button>
+                <webui-content slot="content" nodetach>
+
+A TXT record is a short piece of text in your domain's DNS settings. Your domain registrar or DNS host, such as Cloudflare or GoDaddy, has a page to add one.
+
+- Add it for the exact domain you entered. For www.example.com, add it to `www`, not to the bare example.com.
+- DNS changes can take a while to spread, so a record you just added may not be found on the first check.
+- You can remove the record once the domain is verified.
+
+                </webui-content>
+                <webui-button slot="tabs">Subdomains</webui-button>
+                <webui-content slot="content" nodetach>
+
+Each website address is its own domain. www.example.com and shop.example.com are two domains, and each needs adding and verifying, because a service on one doesn't work on the other.
+
+A domain belongs to one company, and can't be added by another account while it's in use.
+
+                </webui-content>
+            </webui-tabs>
+        </webui-page-help>
         <webui-page-segment elevation="10">
             <webui-flex gap="3">
                 <webui-dropdown label="Current Company" data-subscribe="session-company-id" data-trigger="session-company-id|filter-domains.companyId" api="user/companies/options"></webui-dropdown>
