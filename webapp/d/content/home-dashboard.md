@@ -10,7 +10,7 @@ My Fidelity is where you manage the services behind your websites and apps. Ever
 2. **[Add your website's domain](/domains)** to the company, and verify that it's yours with a DNS record.
 3. **Use the services** on your verified domains:
     - **[Feedback](/feedback)** collects messages from visitors to your sites.
-    - **[Newsletters](/newsletters)** let visitors sign up for email from you, and send them the campaigns you write.
+    - **[Newsletters](/newsletters)** let visitors sign up for email from you, and send them the campaigns you write, from your own email address on the **[Sending Addresses](/senders)** page.
 4. **[Add an app](/apps)** if you make an installed program, so people can sign in to it with their Stoic Dreams account.
 
 Every page has a **Help** button at the bottom right of the window with a guide to what it shows and what you can do there.

@@ -31,8 +31,13 @@ const feedbackCounts = [
     { company: 'Acme Studio', domain: 'Acme Shop', count: 1, latest: when(1, '03:05 PM') },
 ];
 const newsletters = [
-    { id: 31, name: 'Studio Notes', key: '3b8e4f2a-1c6d-4e9b-8a7f-5d2c1b0e9a43', status: 'Active', paused: false, subscribers: 248, pending: 6, created: when(2, '09:40 AM'), description: 'What we shipped this month.' },
-    { id: 32, name: 'Release News', key: '9d1a7c3e-2f4b-4a8d-b6e5-0c3f2a1d8b76', status: 'Paused', paused: true, subscribers: 0, pending: 0, created: when(2, '02:15 PM'), description: '' },
+    { id: 31, name: 'Studio Notes', key: '3b8e4f2a-1c6d-4e9b-8a7f-5d2c1b0e9a43', status: 'Active', paused: false, credential_id: 61, sender: 'Newsletters (n***@a***.example)', subscribers: 248, pending: 6, created: when(2, '09:40 AM'), description: 'What we shipped this month.' },
+    { id: 32, name: 'Release News', key: '9d1a7c3e-2f4b-4a8d-b6e5-0c3f2a1d8b76', status: 'Paused', paused: true, credential_id: 0, sender: 'Not chosen', subscribers: 0, pending: 0, created: when(2, '02:15 PM'), description: '' },
+];
+
+const senders = [
+    { id: 61, label: 'Newsletters', address: 'n***@a***.example', server: 'smtp.acmestudio.example:587 (STARTTLS)', status: 'Ready', ready: true, details: 'Signed in and sent a test email to this address.', limits: '100 an hour, 500 a day', smtp_host: 'smtp.acmestudio.example', smtp_port: 587, smtp_security: 'starttls', hourly_limit: 100, daily_limit: 500, sent: 37, failed: 1, newsletters: 1 },
+    { id: 62, label: 'Support', address: 's***@a***.example', server: 'smtp.acmestudio.example:465 (TLS)', status: 'Checking', ready: false, details: '', limits: '50 an hour, 300 a day', smtp_host: 'smtp.acmestudio.example', smtp_port: 465, smtp_security: 'tls', hourly_limit: 50, daily_limit: 300, sent: 0, failed: 0, newsletters: 0 },
 ];
 
 const answers = {
@@ -45,7 +50,12 @@ const answers = {
     '/user/apps': () => report('Name|name;App Key|key;Signed In|sessions;Created:|created;Last Updated:|updated', apps),
     '/user/feedback': () => report('User|user;Message|message;Created:|created;Last Updated:|updated', feedback),
     '/user/feedback/counts': () => report('Company|company;Domain|domain;Count:|count;Latest:|latest', feedbackCounts),
-    '/user/newsletters': () => report('Name|name;Key|key;Status|status;Subscribers:|subscribers;Pending:|pending;Created:|created', newsletters),
+    '/user/newsletters': () => report('Name|name;Key|key;Status|status;Sends From|sender;Subscribers:|subscribers;Pending:|pending;Created:|created', newsletters),
+    '/user/email/credentials': () => report('Name|label;Address|address;Mail Server|server;Status|status;Details|details;Limits|limits;Sent (24 hours):|sent;Failed (24 hours):|failed;Newsletters:|newsletters', senders),
+    '/user/email/credentials/options': () => senders.map(s => ({ value: s.id, display: `${s.label} (${s.address})` })),
+    '/user/newsletter/failures': () => report('When|happened;Campaign|campaign;Recipient|recipient;Attempt:|attempt;Problem|problem;Code|code;Server Message|message;Retrying|retrying', [
+        { id: 71, happened: when(2, '10:12 AM'), campaign: 'Welcome', recipient: 'p***@e***.com', attempt: 1, problem: 'Temporary', code: '421', message: 'Service not available, try again later', retrying: 'Yes' },
+    ]),
     '/user/newsletter/campaigns': () => report('Name|name;Subject|subject;Type|type;Delay (minutes):|delay;Queued:|queued;Sent:|sent;Updated:|updated', [
         { id: 41, name: 'Welcome', subject: 'Welcome to Studio Notes', type: 'Delayed', delay: 0, queued: 2, sent: 0, updated: when(2, '09:45 AM'), body_html: '', body_text: '', campaign_type: 'delayed', send_offset_minutes: 0 },
     ]),
@@ -60,6 +70,7 @@ const answers = {
 
 // Text each page shows once its sample data has loaded.
 const loaded = {
+    '/senders': 'Signed in and sent a test email',
     '/companies': 'Northwind Apps',
     '/domains': 'docs.acmestudio.example',
     '/apps': 'Acme Desktop',

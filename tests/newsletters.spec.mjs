@@ -41,6 +41,8 @@ async function mockApi(page, { paused = false } = {}) {
             }
             case '/user/newsletter/campaigns': return json(report('Name|name;Subject|subject;Type|type', [CAMPAIGN]));
             case '/user/newsletter/subscribers': return json(report('Email|email;Status|status', [{ id: 1, email: 'j***@e***.com', status: 'Confirmed' }]));
+            case '/user/email/credentials/options': return json([{ value: 61, display: 'Newsletters (n***@s***.com)' }, { value: 62, display: 'Support (s***@s***.com) - Checking' }]);
+            case '/user/newsletter/failures': return json(report('When|happened;Problem|problem;Server Message|message', [{ id: 1, happened: 'Today', problem: 'Temporary', message: 'Try again later' }]));
             case '/user/newsletters/analytics': return json(report('Newsletter|name;Subscribers:|confirmed', [{ id: 3, name: 'Weekly Notes', confirmed: 2 }]));
             default: return route.fulfill({ headers, contentType: 'text/plain', body: 'Saved' });
         }
@@ -167,12 +169,24 @@ test('a paused newsletter can be resumed', async ({ page }) => {
     await expect.poll(() => sent.find(s => s.path === '/user/newsletter/resume')?.body).toEqual({ newsletterId: '3' });
 });
 
+test('a newsletter sending address is chosen from the company addresses', async ({ page }) => {
+    const sent = await openNewsletters(page);
+    await page.locator('webui-report[api="/user/newsletters"] webui-button[title="Sending Address for Weekly Notes"]').click();
+    const dialog = page.locator('webui-dialogs');
+    const dropdown = dialog.locator('webui-dropdown');
+    await expect(dropdown.locator('option')).toHaveText(['None: campaigns wait', 'Newsletters (n***@s***.com)', 'Support (s***@s***.com) - Checking']);
+    await dropdown.evaluate(d => { d.setValue('61'); d.triggerChange(); });
+    await dialog.locator('#dlg-confirm').click();
+    await expect.poll(() => sent.find(s => s.path === '/user/newsletter/sender')?.body).toEqual({ newsletterId: '3', credentialId: '61' });
+});
+
 test('subscribers and analytics load for the chosen newsletter and domain', async ({ page }) => {
     await openNewsletters(page);
     await page.locator('webui-tabs').getByRole('button', { name: 'Subscribers', exact: true }).click();
     await expect(page.locator('webui-report[api="/user/newsletter/subscribers"]')).toContainText('j***@e***.com');
     await page.locator('webui-tabs').getByRole('button', { name: 'Analytics', exact: true }).click();
     await expect(page.locator('webui-report[api="/user/newsletters/analytics"]')).toContainText('Weekly Notes');
+    await expect(page.locator('webui-report[api="/user/newsletter/failures"]')).toContainText('Try again later');
 });
 
 test('the confirm page asks for a click before confirming', async ({ page }) => {

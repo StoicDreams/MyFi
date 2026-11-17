@@ -29,6 +29,12 @@
         "role": 1
     },
     {
+        "name": "Sending Addresses",
+        "icon": "envelope",
+        "url": "/senders",
+        "role": 1
+    },
+    {
         "name": "Url Shortener",
         "icon": "link",
         "url": "/shorturl",
