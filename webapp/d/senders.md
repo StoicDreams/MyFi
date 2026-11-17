@@ -10,7 +10,7 @@
                 <webui-button slot="tabs">Getting Started</webui-button>
                 <webui-content slot="content" nodetach>
 
-1. **Pick the company** the address belongs to. Its domain must be one of the company's verified domains, such as an address at example.com for www.example.com.
+1. **Pick the company** the address belongs to. Its domain must be a verified domain of any company you own, such as an address at example.com for www.example.com.
 2. **Add the address** with your mail provider's SMTP settings and the password to sign in. See Provider Settings for the common ones.
 3. **Wait for the check.** Within a few minutes My Fidelity signs in and sends a test email to the address. It then shows as **Ready**, or **Needs attention** with the reason.
 4. **Choose it for a newsletter** with the sending address button on the newsletter's row on the [Newsletters](/newsletters) page. One address can send for any of the company's newsletters.
@@ -27,6 +27,8 @@
 | Rackspace Email | secure.emailsrvr.com | 587, STARTTLS | Your password |
 
 Your provider's help pages list its SMTP settings if yours isn't here. The username is usually the full email address.
+
+Don't use port 25. It is for mail servers passing mail to each other, and most networks block it, so the check only times out.
 
                 </webui-content>
                 <webui-button slot="tabs">Limits and Retries</webui-button>
@@ -58,7 +60,7 @@ When a mail server asks to try later, the email is sent again after 5 minutes, 1
             <webui-dialog-action title="Add Sending Address" confirm="Add Address" api="post|/user/email/credential/create" data-subscribe="page-sender-create" data-success="refresh-senders">
                 <template>
                     <webui-page-segment>
-                        Enter the address and your mail provider's SMTP settings. The address must use one of this company's verified domains. Everything you enter here is encrypted before it is saved.
+                        Enter the address and your mail provider's SMTP settings. The address must use a verified domain of any company you own. Everything you enter here is encrypted before it is saved.
                     </webui-page-segment>
                     <input type="hidden" name="companyId" data-subscribe="session-company-id" />
                     <webui-input-text label="Name" name="label" placeholder="Such as Newsletters, to tell your addresses apart" maxlength="100"></webui-input-text>
@@ -72,6 +74,9 @@ When a mail server asks to try later, the email is sent again after 5 minutes, 1
                     <webui-input-text label="Daily Limit" name="dailyLimit" type="number" min="1" max="1000000" value="500"></webui-input-text>
                     <webui-quote theme="info">
                         Keep the limits below what your provider allows, such as about 500 a day for Gmail. Open the help for common providers' settings.
+                    </webui-quote>
+                    <webui-quote theme="warning">
+                        Password managers may fill in your My Fidelity sign-in here. Check that the username and password are your mailbox's, or the check fails with the sign-in refused.
                     </webui-quote>
                 </template>
             </webui-dialog-action>
