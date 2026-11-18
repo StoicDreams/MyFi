@@ -1,4 +1,4 @@
-<webui-data data-page-title="App Management" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="App Management" data-page-subtitle="" data-page-description="Add the desktop apps you make, get an app key so people can sign in with a Stoic Dreams account, and see how many computers are signed in."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

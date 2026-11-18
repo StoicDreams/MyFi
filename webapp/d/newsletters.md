@@ -1,4 +1,4 @@
-<webui-data data-page-title="Newsletter Management" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="Newsletter Management" data-page-subtitle="" data-page-description="Add newsletters to your domains, place the signup form on your site, and write the campaigns and email series sent to your subscribers."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

@@ -1,4 +1,4 @@
-<webui-data data-page-title="Company Management" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="Company Management" data-page-subtitle="" data-page-description="Set up the companies that own your domains, apps, and services, and add the postal address newsletter emails must show. Sign in to manage them."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

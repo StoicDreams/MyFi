@@ -1,4 +1,4 @@
-<webui-data data-page-title="User Management" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="User Management" data-page-subtitle="" data-page-description="See statistics about the people who sign in to your websites and apps, without their personal details. Coming soon for signed-in users."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

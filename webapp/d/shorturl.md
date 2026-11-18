@@ -1,4 +1,4 @@
-<webui-data data-page-title="URL Shortener" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="URL Shortener" data-page-subtitle="" data-page-description="Create short, clean links for your projects and messages, then edit them and track clicks. Coming soon for signed-in users."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

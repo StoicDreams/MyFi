@@ -1,4 +1,4 @@
-<webui-data data-page-title="Confirm Subscription" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="Confirm Subscription" data-page-subtitle="" data-page-description="Confirm your newsletter signup so you start receiving emails. Only confirmed addresses get newsletters, and every email can be unsubscribed."></webui-data>
 
 <webui-page-segment elevation="10">
     <webui-newsletter confirm></webui-newsletter>

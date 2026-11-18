@@ -1,4 +1,4 @@
-<webui-data data-page-title="Domain Management" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="Domain Management" data-page-subtitle="" data-page-description="Add your websites to a company and verify them with a DNS TXT record, so newsletters and feedback can work on them. Sign in to manage domains."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

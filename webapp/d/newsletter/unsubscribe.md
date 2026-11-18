@@ -1,4 +1,4 @@
-<webui-data data-page-title="Unsubscribe" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="Unsubscribe" data-page-subtitle="" data-page-description="Stop receiving a newsletter sent through My Fidelity. Unsubscribing here ends this newsletter only, not others you signed up for."></webui-data>
 
 <webui-page-segment elevation="10">
     <webui-newsletter unsubscribe></webui-newsletter>

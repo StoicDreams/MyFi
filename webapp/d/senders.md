@@ -1,4 +1,4 @@
-<webui-data data-page-title="Sending Addresses" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="Sending Addresses" data-page-subtitle="" data-page-description="Connect your own email accounts so My Fidelity sends your newsletters from your address, with SMTP settings for common providers and a check."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

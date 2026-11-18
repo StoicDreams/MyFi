@@ -1,4 +1,4 @@
-<webui-data data-page-title="Feedback Management" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="Feedback Management" data-page-subtitle="" data-page-description="Read the messages visitors send from the feedback form on your websites, delete the ones you have handled, and see counts by domain."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

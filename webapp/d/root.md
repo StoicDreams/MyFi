@@ -1,4 +1,4 @@
-<webui-data data-page-title="My Fidelity - BAAS Content Delivery and Api Services" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="My Fidelity - BAAS Content Delivery and Api Services" data-page-subtitle="" data-page-description="My Fidelity offers backend services for developers, from content delivery to APIs, from Stoic Dreams. The first services are launching soon."></webui-data>
 
 <webui-page-segment elevation="10">
 

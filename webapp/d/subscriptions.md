@@ -1,4 +1,4 @@
-<webui-data data-page-title="Subscription Management" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="Subscription Management" data-page-subtitle="" data-page-description="Choose, change, or cancel plans for paid My Fidelity services such as newsletters. Each service is billed on its own. Coming soon."></webui-data>
 
 <webui-restrict-to-role role="1">
     <template slot="valid">

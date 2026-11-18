@@ -1,4 +1,4 @@
-<webui-data data-page-title="API Services and Content delivery for Stoic Dreams powered websites and applications" data-page-subtitle=""></webui-data>
+<webui-data data-page-title="API Services and Content delivery for Stoic Dreams powered websites and applications" data-page-subtitle="" data-page-description="Why My Fidelity exists: the hub for Stoic Dreams API services and content, now becoming backend-as-a-service tools for other developers and companies."></webui-data>
 
 <webui-page-segment elevation="10">
 
