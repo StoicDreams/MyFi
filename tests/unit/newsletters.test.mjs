@@ -115,6 +115,25 @@ test('editing a campaign keeps its HTML body exactly and sends every field', asy
     });
 });
 
+test('the campaign editor puts what must be filled in first, and keeps its bodies and preview to the window', async ({ page }) => {
+    await openNewsletters(page);
+    await page.locator('webui-tabs').getByRole('button', { name: 'Campaigns', exact: true }).click();
+    await expect(page.locator('webui-report[api="/user/newsletter/campaigns"]')).toContainText('Welcome aboard');
+    await page.getByRole('button', { name: 'Add Campaign' }).click();
+    const dialog = page.locator('webui-dialogs');
+    await expect(dialog.getByLabel('Campaign Name (required)')).toBeVisible();
+    // A long body used to push the name's neighbours, and any error, below what the dialog shows.
+    const order = await dialog.locator('form').evaluate(form =>
+        [...form.querySelectorAll('[name]')].map(field => field.getAttribute('name')).filter(name => name !== 'newsletterId'));
+    expect(order).toEqual(['name', 'campaignType', 'sendOffsetMinutes', 'subject', 'bodyHtml', 'bodyText']);
+    const heights = await dialog.locator('form').evaluate(form => ({
+        html: form.querySelector('webui-input-message[name="bodyHtml"]').style.height,
+        text: form.querySelector('webui-input-message[name="bodyText"]').style.height,
+        preview: form.querySelector('webui-email-preview').getAttribute('height'),
+    }));
+    expect(heights).toEqual({ html: '36vh', text: '16vh', preview: '50vh' });
+});
+
 test('the campaign editor previews the email with the newsletter header and footer, as HTML or text', async ({ page }) => {
     const sent = await openNewsletters(page);
     await page.locator('webui-tabs').getByRole('button', { name: 'Campaigns', exact: true }).click();

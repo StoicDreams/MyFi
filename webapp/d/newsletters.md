@@ -179,20 +179,23 @@ Email addresses are partly hidden, because Stoic Dreams keeps subscribers' perso
                 <webui-dialog-action title="Add Campaign" confirm="Add Campaign" api="post|/user/newsletter/campaign/create" data-subscribe="page-news-campaign-create" data-success="refresh-news-campaigns">
                     <template>
                         <input type="hidden" name="newsletterId" data-subscribe="session-newsletter-id" />
-                        <webui-page-segment>
-                            Write only your own content. My Fidelity adds a header with the newsletter's name and your company, and a footer with why the subscriber is getting it, an unsubscribe link, and your company's postal address. The preview shows the whole email, and **Show Text** switches to the plain text version.
-                        </webui-page-segment>
-                        <webui-input-text label="Campaign Name" name="name" placeholder="Only shown here, to tell your campaigns apart" maxlength="100"></webui-input-text>
-                        <webui-side-by-side>
+                        <!-- What must be filled in comes first, where it shows without scrolling. The two bodies and the preview keep to the height of the window and scroll inside themselves, so the dialog stays one screen. -->
+                        <webui-flex gap="2" align="end" wrap-at="900">
+                            <webui-input-text label="Campaign Name (required)" name="name" placeholder="Only shown here, to tell your campaigns apart" maxlength="100" style="flex:2 1 16em;"></webui-input-text>
+                            <label style="flex:2 1 16em;">When to send <select name="campaignType"><option value="draft" selected>Draft: don't send</option><option value="immediate">Immediate: once, to every confirmed subscriber</option><option value="delayed">Delayed: to each subscriber, after they confirm</option></select></label>
+                            <webui-input-text label="Delay in minutes (Delayed only)" name="sendOffsetMinutes" type="number" min="0" max="525600" value="0" style="flex:1 1 10em;"></webui-input-text>
+                        </webui-flex>
+                        <webui-input-text label="Email Subject (required)" name="subject" maxlength="200" data-trigger="page-news-draft-new.subject"></webui-input-text>
+                        <webui-side-by-side style="align-items:start;padding:0;margin:var(--padding) 0;">
                             <webui-flex column gap="2">
-                                <webui-input-text label="Email Subject" name="subject" maxlength="200" data-trigger="page-news-draft-new.subject"></webui-input-text>
-                                <webui-input-message label="Email Body (HTML)" name="bodyHtml" maxlength="200000" data-trigger="page-news-draft-new.bodyHtml"></webui-input-message>
-                                <webui-input-message label="Email Body (plain text)" name="bodyText" placeholder="Shown by mail apps that don't display HTML. Leave empty to make it from the HTML" maxlength="200000" data-trigger="page-news-draft-new.bodyText"></webui-input-message>
+                                <webui-input-message label="Email Body (HTML)" name="bodyHtml" maxlength="200000" height="36vh" data-trigger="page-news-draft-new.bodyHtml"></webui-input-message>
+                                <webui-input-message label="Email Body (plain text)" name="bodyText" placeholder="Shown by mail apps that don't display HTML. Leave empty to make it from the HTML" maxlength="200000" height="16vh" data-trigger="page-news-draft-new.bodyText"></webui-input-message>
                             </webui-flex>
-                            <webui-email-preview api="post|/user/newsletter/campaign/preview" data-api="filter-newsletter-campaigns" data-subscribe="page-news-draft-new"></webui-email-preview>
+                            <webui-email-preview api="post|/user/newsletter/campaign/preview" data-api="filter-newsletter-campaigns" data-subscribe="page-news-draft-new" height="50vh"></webui-email-preview>
                         </webui-side-by-side>
-                        <label>When to send <select name="campaignType"><option value="draft" selected>Draft: don't send</option><option value="immediate">Immediate: once, to every confirmed subscriber</option><option value="delayed">Delayed: to each subscriber, after they confirm</option></select></label>
-                        <webui-input-text label="Delay in minutes (Delayed only)" name="sendOffsetMinutes" type="number" min="0" max="525600" value="0"></webui-input-text>
+                        <webui-quote theme="info">
+                            Write only your own content. My Fidelity adds a header with the newsletter's name and your company, and a footer with why the subscriber is getting it, an unsubscribe link, and your company's postal address. The preview shows the whole email, and **Show Text** switches to the plain text version.
+                        </webui-quote>
                         <webui-quote theme="info">
                             Immediate campaigns are queued within a few minutes and can't be changed afterward. Delayed campaigns go to each subscriber the given number of minutes after they confirm, for example 0 for a welcome email or 43200 for 30 days. A new delayed campaign isn't sent to subscribers whose send time had already passed more than an hour before you created it.
                         </webui-quote>
@@ -208,17 +211,19 @@ Email addresses are partly hidden, because Stoic Dreams keeps subscribers' perso
                     <webui-dialog-action title="Edit {TEMPLATE_NAME}" confirm="Save Campaign" api="patch|/user/newsletter/campaign" data-subscribe="page-news-campaign-{_ROWID}-update" data-success="refresh-news-campaigns">
                         <template>
                             <input type="hidden" name="campaignId" value="{TEMPLATE_ID}" />
-                            <webui-input-text label="Campaign Name" name="name" maxlength="100" data-subscribe="page-tr-{_ROWID}.name"></webui-input-text>
-                            <webui-side-by-side>
+                            <webui-flex gap="2" align="end" wrap-at="900">
+                                <webui-input-text label="Campaign Name (required)" name="name" maxlength="100" data-subscribe="page-tr-{_ROWID}.name" style="flex:2 1 16em;"></webui-input-text>
+                                <label style="flex:2 1 16em;">When to send <select name="campaignType" data-subscribe="page-tr-{_ROWID}.campaign_type:value"><option value="draft">Draft: don't send</option><option value="immediate">Immediate: once, to every confirmed subscriber</option><option value="delayed">Delayed: to each subscriber, after they confirm</option></select></label>
+                                <webui-input-text label="Delay in minutes (Delayed only)" name="sendOffsetMinutes" type="number" min="0" max="525600" data-subscribe="page-tr-{_ROWID}.send_offset_minutes" style="flex:1 1 10em;"></webui-input-text>
+                            </webui-flex>
+                            <webui-input-text label="Email Subject (required)" name="subject" maxlength="200" data-subscribe="page-tr-{_ROWID}.subject" data-trigger="page-news-draft-{_ROWID}.subject"></webui-input-text>
+                            <webui-side-by-side style="align-items:start;padding:0;margin:var(--padding) 0;">
                                 <webui-flex column gap="2">
-                                    <webui-input-text label="Email Subject" name="subject" maxlength="200" data-subscribe="page-tr-{_ROWID}.subject" data-trigger="page-news-draft-{_ROWID}.subject"></webui-input-text>
-                                    <webui-input-message label="Email Body (HTML)" name="bodyHtml" maxlength="200000" data-subscribe="page-tr-{_ROWID}.body_html" data-trigger="page-news-draft-{_ROWID}.bodyHtml"></webui-input-message>
-                                    <webui-input-message label="Email Body (plain text)" name="bodyText" placeholder="Leave empty to make it from the HTML" maxlength="200000" data-subscribe="page-tr-{_ROWID}.body_text" data-trigger="page-news-draft-{_ROWID}.bodyText"></webui-input-message>
+                                    <webui-input-message label="Email Body (HTML)" name="bodyHtml" maxlength="200000" height="36vh" data-subscribe="page-tr-{_ROWID}.body_html" data-trigger="page-news-draft-{_ROWID}.bodyHtml"></webui-input-message>
+                                    <webui-input-message label="Email Body (plain text)" name="bodyText" placeholder="Leave empty to make it from the HTML" maxlength="200000" height="16vh" data-subscribe="page-tr-{_ROWID}.body_text" data-trigger="page-news-draft-{_ROWID}.bodyText"></webui-input-message>
                                 </webui-flex>
-                                <webui-email-preview api="post|/user/newsletter/campaign/preview" data-api="filter-newsletter-campaigns" data-subscribe="page-tr-{_ROWID}|page-news-draft-{_ROWID}"></webui-email-preview>
+                                <webui-email-preview api="post|/user/newsletter/campaign/preview" data-api="filter-newsletter-campaigns" data-subscribe="page-tr-{_ROWID}|page-news-draft-{_ROWID}" height="50vh"></webui-email-preview>
                             </webui-side-by-side>
-                            <label>When to send <select name="campaignType" data-subscribe="page-tr-{_ROWID}.campaign_type:value"><option value="draft">Draft: don't send</option><option value="immediate">Immediate: once, to every confirmed subscriber</option><option value="delayed">Delayed: to each subscriber, after they confirm</option></select></label>
-                            <webui-input-text label="Delay in minutes (Delayed only)" name="sendOffsetMinutes" type="number" min="0" max="525600" data-subscribe="page-tr-{_ROWID}.send_offset_minutes"></webui-input-text>
                         </template>
                     </webui-dialog-action>
                     <webui-dialog-action title="Delete {TEMPLATE_NAME}" confirm="Delete Campaign" api="delete|/user/newsletter/campaign" data-subscribe="page-news-campaign-{_ROWID}-delete" data-success="refresh-news-campaigns">
