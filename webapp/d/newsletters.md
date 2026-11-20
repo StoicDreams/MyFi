@@ -14,7 +14,7 @@
 2. **Add a newsletter** with a name and a description. Visitors see both above the signup form.
 3. **Check its status** in the Newsletters tab. It takes signups once it is Active.
 4. **Choose its sending address** with the envelope button on its row. Add your own email account on the [Sending Addresses](/senders) page first.
-5. **Put the signup form on your site** with the code button on its row. It only works on that domain.
+5. **Put the signup form on your site** with the code button on its row. It works on that domain and on the other domains of the same company, so one newsletter can serve several of a company's sites.
 6. **Write campaigns** in the Campaigns tab, and watch subscribers arrive in the Subscribers tab.
 
                 </webui-content>
@@ -114,7 +114,7 @@ Email addresses are partly hidden, because Stoic Dreams keeps subscribers' perso
                     <webui-dialog-action title="Signup Form for {TEMPLATE_NAME}" confirm="Close" data-subscribe="page-newsletter-{_ROWID}-code">
                         <template>
                             <webui-page-segment>
-                                Add this to any page of the newsletter's domain to show its signup form. It only works on that domain, and it hides itself while the newsletter isn't taking signups.
+                                Add this to any page of the newsletter's domain, or of another domain of the same company, to show its signup form. It doesn't work on other companies' domains, and it hides itself while the newsletter isn't taking signups.
                             </webui-page-segment>
                             <webui-code language="html" label="Signup form">&lt;webui-newsletter key="{TEMPLATE_KEY}"&gt;&lt;/webui-newsletter&gt;</webui-code>
                         </template>
