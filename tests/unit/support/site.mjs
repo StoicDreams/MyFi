@@ -15,7 +15,8 @@
 //
 // This file is the same in every site: change them all at once. page.mjs, stand-ins.mjs and test-cache.mjs are copies
 // of MyFiCDN's tests/unit/support files, shared with Task Proxy too.
-import jsdom from 'jsdom';
+import { IDBCursor, IDBCursorWithValue, IDBDatabase, IDBFactory, IDBIndex, IDBKeyRange, IDBObjectStore, IDBOpenDBRequest, IDBRequest, IDBTransaction, IDBVersionChangeEvent } from 'fake-indexeddb';
+import { createRequire } from 'node:module';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve, sep } from 'node:path';
 import { afterAll, test as base } from 'vitest';
@@ -31,7 +32,19 @@ export * from '../../support/site-files.mjs';
 // The harness reads the site through these, so every test depends on them.
 configureCache({ harness: ['tests/support/site-files.mjs', 'tests/support/tracked-fs.mjs', 'tests/support/live-cdn.setup.mjs'] });
 
-const { JSDOM, VirtualConsole, requestInterceptor } = jsdom;
+// jsdom does not load another page when a page leaves for one, by a link or by setting location. Its navigate is replaced
+// before jsdom loads, which keeps it, so a window with a __leaveTo hook loads the page there, as a browser does.
+const require = createRequire(import.meta.url);
+const navigation = require('jsdom/lib/jsdom/living/window/navigation.js');
+const { serializeURL } = createRequire(require.resolve('jsdom'))('whatwg-url');
+const jsdomNavigate = navigation.navigate;
+navigation.navigate = (window, url, flags) => {
+    const current = window._document?._URL;
+    const sameDocument = current && serializeURL(current, true) === serializeURL(url, true) && !flags.reloadTriggered;
+    if (window.__leaveTo && !sameDocument && url.scheme !== 'javascript') window.__leaveTo(serializeURL(url));
+    else jsdomNavigate(window, url, flags);
+};
+const { JSDOM, VirtualConsole, requestInterceptor } = require('jsdom');
 // The same address the browser tests use, from playwright.config.mjs.
 export const ORIGIN = new URL(readFileSync(join(SITE_ROOT, 'playwright.config.mjs'), 'utf8').match(/baseURL:\s*'([^']+)'/)?.[1] || 'http://localhost:8080').origin;
 const LIVE_CDN_ORIGIN = 'https://cdn.myfi.ws';
@@ -227,10 +240,24 @@ function restoreStorage(window, storage) {
     for (const [key, value] of Object.entries(storage.session)) window.sessionStorage.setItem(key, value);
 }
 
-/** Lets the page act on what just happened: queued work, then two animation frames. */
+/** Windows that were closed, by a page load or the test ending: they draw no more frames. */
+const closedWindows = new WeakSet();
+function closeWindow(window) {
+    if (!window) return;
+    closedWindows.add(window);
+    window.close();
+}
+
+/** Lets the page act on what just happened: queued work, then two animation frames, or until the page is left. */
 export async function settle(window) {
     await new Promise(done => setTimeout(done, 0));
-    await new Promise(done => window.requestAnimationFrame(() => window.requestAnimationFrame(done)));
+    await new Promise(done => {
+        if (closedWindows.has(window)) return done();
+        const left = setInterval(() => {
+            if (closedWindows.has(window)) { clearInterval(left); done(); }
+        }, 10);
+        window.requestAnimationFrame(() => window.requestAnimationFrame(() => { clearInterval(left); done(); }));
+    });
 }
 
 /**
@@ -241,6 +268,8 @@ export async function openTab(record) {
     const errors = [];
     const listeners = {};
     const env = {
+        // jsdom has no IndexedDB: each tab gets its own, kept across its page loads, as a browser keeps the origin's.
+        indexedDB: new IDBFactory(),
         routes: [],
         initScripts: [],
         exposed: {},
@@ -268,7 +297,7 @@ export async function openTab(record) {
         if (!EXPECTED_CONSOLE.some(pattern => pattern.test(text))) errors.push(text);
     };
     const load = async (pageHtml, pageUrl, storage) => {
-        env.window?.close();
+        closeWindow(env.window);
         const virtualConsole = new VirtualConsole();
         for (const type of ['log', 'info', 'warn', 'debug']) virtualConsole.on(type, (...args) => env.emit('console', consoleMessage(type, args)));
         virtualConsole.on('error', (...args) => {
@@ -282,6 +311,9 @@ export async function openTab(record) {
             if (text.startsWith('Error setting data')) errors.push(text);
         });
         virtualConsole.on('jsdomError', error => {
+            // A file from outside the site and the CDN, such as fonts or analytics, is blocked on purpose.
+            const failed = `${error.message}`.match(/^Could not load \w+: "([^"]+)"/)?.[1];
+            if (failed && !CDN_ORIGINS.has(new URL(failed).origin) && new URL(failed).origin !== ORIGIN) return;
             if (!EXPECTED_CONSOLE.some(pattern => pattern.test(`${error.message}`))) env.emit('pageerror', error);
         });
         const dom = new JSDOM(pageHtml, {
@@ -289,13 +321,28 @@ export async function openTab(record) {
             runScripts: 'dangerously',
             pretendToBeVisual: true,
             virtualConsole,
-            resources: { interceptors: [requestInterceptor(request => answer(env, new RouteRequest(request.url, request.method, null, headerObject(request.headers))))] },
+            resources: {
+                interceptors: [requestInterceptor(async request => {
+                    const response = await answer(env, new RouteRequest(request.url, request.method, null, headerObject(request.headers)));
+                    // jsdom stops reading the page at a stylesheet whose request fails outright, where a browser goes on,
+                    // so a blocked file fails with an error status instead.
+                    return response.type === 'error' ? new Response('', { status: 502 }) : response;
+                })],
+            },
             beforeParse(window) {
+                // A page leaving for another loads it in this tab, after the current task, as a browser does.
+                Object.defineProperty(window, '__leaveTo', {
+                    value: href => setTimeout(() => {
+                        if (env.window === window) env.goto(href).catch(error => env.emit('pageerror', error));
+                    }, 0),
+                });
                 env.page?.clock?._onWindow(window);
                 Object.defineProperty(window, 'innerWidth', { configurable: true, value: env.viewport?.width ?? VIEWPORT.width });
                 Object.defineProperty(window, 'innerHeight', { configurable: true, value: env.viewport?.height ?? VIEWPORT.height });
                 if (storage) restoreStorage(window, storage);
                 installStandIns(window);
+                Object.assign(window, { IDBCursor, IDBCursorWithValue, IDBDatabase, IDBIndex, IDBKeyRange, IDBObjectStore, IDBOpenDBRequest, IDBRequest, IDBTransaction, IDBVersionChangeEvent, IDBFactory });
+                Object.defineProperty(window, 'indexedDB', { configurable: true, value: env.indexedDB });
                 // jsdom's crypto has getRandomValues only; Node's Web Crypto stands in for the rest.
                 if (!window.crypto?.subtle) Object.defineProperty(window, 'crypto', { configurable: true, value: globalThis.crypto });
                 window.matchMedia = mediaMatcher(env.media);
@@ -375,7 +422,7 @@ export const test = base.extend({
         env.page = page;
         await use(page);
         page.clock?.uninstall();
-        env.window?.close();
+        closeWindow(env.window);
         // Vitest keeps each test's context until the file ends, so the window is let go here or every test's stays.
         const { errors } = env;
         page.release();

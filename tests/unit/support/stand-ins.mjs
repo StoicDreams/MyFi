@@ -426,6 +426,13 @@ export function installStandIns(window) {
         clearData() { this.data = {}; }
         get types() { return Object.keys(this.data); }
     };
+    // A drag event carries its DataTransfer, as a browser's does.
+    window.DragEvent ??= class DragEvent extends window.MouseEvent {
+        constructor(type, init = {}) {
+            super(type, init);
+            Object.defineProperty(this, 'dataTransfer', { configurable: true, value: init.dataTransfer ?? null });
+        }
+    };
 }
 
 /**
