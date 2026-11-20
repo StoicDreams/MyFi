@@ -30,7 +30,8 @@ export { expect };
 export * from '../../support/site-files.mjs';
 
 // The harness reads the site through these, so every test depends on them.
-configureCache({ harness: ['tests/support/site-files.mjs', 'tests/support/tracked-fs.mjs', 'tests/support/live-cdn.setup.mjs'] });
+// tests/helpers holds a site's own helpers for both tiers, when it has any.
+configureCache({ harness: ['tests/support/site-files.mjs', 'tests/support/tracked-fs.mjs', 'tests/support/live-cdn.setup.mjs', 'tests/helpers'] });
 
 // jsdom does not load another page when a page leaves for one, by a link or by setting location. Its navigate is replaced
 // before jsdom loads, which keeps it, so a window with a __leaveTo hook loads the page there, as a browser does.

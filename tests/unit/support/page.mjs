@@ -491,6 +491,8 @@ export class Locator {
     async evaluateAll(fn, arg) { return this._page._call(fn, this._resolve(), arg); }
     async getAttribute(name) { return (await this._one()).getAttribute(name); }
     async textContent() { return (await this._one()).textContent; }
+    async allInnerTexts() { return this._resolve().map(el => normalize(renderedText(el))); }
+    async allTextContents() { return this._resolve().map(el => el.textContent ?? ''); }
     async innerText() { return normalize(renderedText(await this._one())); }
     async inputValue() { return (await this._one()).value; }
     async isVisible() { return isShown(this.element()); }

@@ -27,6 +27,7 @@ npm test
 - `unit/site.test.mjs`, `browser/site.spec.mjs`, and everything in `support/` and `unit/support/` are the same in every site. Change them in every site at once. `unit/support/page.mjs`, `stand-ins.mjs` and `test-cache.mjs` are also shared with MyFiCDN and Task Proxy.
 - `service-worker.spec.mjs` and `scripts.spec.mjs` are the same in every site, the CDN, and Task Proxy. They test the service worker and the `PowerShell` scripts, and the script tests need PowerShell 7 (`pwsh`).
 - `site.config.mjs` holds this site's settings.
+- `helpers/` holds this site's own helpers for both tiers, when it has any. They import nothing from either tier's harness.
 - Test this site's own pages and components in `unit/{name}.test.mjs`, with `test`, `expect`, and `openPage` from `unit/support/site.mjs`. Only what needs a real browser goes in `browser/{name}.spec.mjs`, with the same helpers from `support/site.mjs`. A unit test that needs layout (`boundingBox`, `page.mouse`) fails with a message saying it belongs in `tests/browser`.
 
 Rust code in `webapp/src` is tested with `cargo test`. Components that call `webui.worker` need `webapp/pkg`, which `PowerShell/RunLocal.ps1` or `wasm-pack build --target web --out-dir pkg` (run in `webapp`) creates.
